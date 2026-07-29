@@ -1,0 +1,11 @@
+# Clandestine Routing
+
+As MASQ Network grows publicly, eventually there will be external forces who will want to intercept traffic or prevent the network from being utilized in the way it was intended - essentially attempt to censor or infiltrate the network itself
+
+To operate in a way that allows the MASQ CORES packages to be routed with another security layer, [CORES packages](cores-packages/) will be wrapped in a 'mask' - in some ways this will resemble 'onion routing'
+
+The first mask is basic [Encryption Methods](encryption-methods-explained) seen today and they provide additional layers of security similar to typical HTTPS traffic we see today.
+
+Long term development goals are on the ultimate security goal of creating **Clandestine routes** for CORES packages in the MASQ Network. In this type of route, each CORES package will be wrapped in a further layer of obscurity that will resemble different types of web traffic (not just HTTPS). Because traffic patterns viewed over time can be distinguishable (by methods such as Deep Packet Inspection) masking packages in random traffic patterns can deter typical packet sniffing and network traffic analyzation methods. This will prevent patterns from emerging and having requests and responses blocked against the users.
+
+This entire layer will wrap around CORES packages and its various components before being handed off to other peers on the routing path.

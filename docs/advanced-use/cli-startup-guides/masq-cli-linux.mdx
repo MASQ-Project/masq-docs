@@ -1,0 +1,177 @@
+# MASQ CLI - Linux
+
+## Getting started on Ubuntu
+
+Command Line Interface testing is where we test the basic functionality and changes made by the developers. It can be a tricky and fiddly thing to master, it takes no prisoners for errors or mistyping and can be frustrating. Like anything, it takes patience and practice. Do not be put off by it, just keep at it and reach out to testers in Discord if you have issues.\
+\
+I have laid this document out as I do things. You may decide I do things in a stupid way or maybe I missed something. I’ve been doing this a while but I will endeavour to start it from the beginning to get you to a point where you can at least start the node (not fully functional) for testing purposes.
+
+:::info
+
+If you have previously tested MASQ Node you need to DELETE ALL OLD NODE DATABASE FILES BEFORE you start again (node-data.db)
+
+:::
+
+## Steps Outlined in this Guide
+
+* [ ] Downloading latest stable Binaries from GitHub Actions
+* [ ] Extracting them to your local disk
+* [ ] Start the Command Line Interface (CLI)
+* [ ] Initialize the MASQDaemon
+* [ ] Setting Configuration for MASQ Node
+* [ ] Starting `masq` Node Process
+
+## Setting Up MASQ Binaries
+
+Open the file manager and create a new folder named Masq in your home directory
+
+![](/img/assets/grpwmez0x_mvfni_2ghr6jm5gy6l3vjsiwbexc9nb7epjzgm6d4m5mbbj4vxepytpp538dyb2997qsl0vo-sgzy0nge9cn6ukw9khgixj3asrbxgjneo_lsob7bs3scfmcwy95vas0)
+
+Download the Binaries for the Masq software:
+
+[Open link](https://github.com/MASQ-Project/Node/actions)
+
+Binaries are different versions of the software that change each time a new feature or fix is added. The simplest way to get started it to pick a set of Binaries which show a green tick like this
+
+![](/img/assets/afvh3dn3sslqbmrmpmcl6uirymmrkintahb0pwohiaimpei3era-alpa0-x4qautzhch6gl8bashnxfypk2hatzo_8qv4bc5jd-7utknzdenc-7qz48yfvvsnenpzx4fz7peujos0)
+
+:::tip
+
+As of 15 Feb 2022, that last stable build in Actions can be found here:
+
+[https://github.com/MASQ-Project/Node/actions/runs/1843245732](https://github.com/MASQ-Project/Node/actions/runs/1843245732)
+
+:::
+
+Once you have clicked on a Binary you will see the Binaries for the 3 operating systems
+
+We are using Ubuntu in this guide.
+
+<img src="/img/assets/image-35.png" alt="" data-size="original"  />
+
+Click on the Ubuntu version and the download will begin.
+
+Go to downloads and copy and paste the downloaded zip file into your previously created Masq folder. You should now have this<br />
+
+![](/img/assets/eglau51am-bbx-qxrr6wkhy_xbfvf7xjmdzio3cqcclhurp_l99xyrss4zihr6bsyvm0rvmmztbtrtyrxmsjfxtnpswcbriip4xisq1ac-5vnajjahc7ull8_fnmnljzohz6f4wns0)
+
+1. Right click the file and select extract here and you will get a folder named Build results ubuntu-latest go in the folder then generated and then bin and you will see this
+
+![](/img/assets/30a9hnug9svpvgbh0hdmdu_plpmnferjrxuzyuhqa_p8bvuqft61bocyvaaanzf87sxebsmec3hyhl5asqsoyzodd_vo6bascv4ys3lbskzqvhoyshqp7-swutjelwd9s5t8f1zus0)
+
+These are the files you want for testing. Copy them and paste into your Masq folder.
+
+You should see something like this
+
+![](/img/assets/1yc-dnyfrnn_edl0psba3qrrul_ypzgujvqrn2jaen8vknw9biycjkwsqpoug3lwxj5hdwczpd-ih0n9qzda9hqyr73eldwar2znhvtlsgjxaj1l95baody3sddn7givuxfxvoi7s0)
+
+Now we have the Binaries and we are ready to start using terminal
+
+## Start the Commandline Interface (CLI)
+
+Now right click anywhere in the folder to open the drop down box in there choose Open in terminal or alternatively you can press Ctrl + Alt + T to open the terminal.
+
+![](/img/assets/iy70ju6r3jl0rjqxdjtmudpuhhbrkmenlfz8hfkii1iobm2bczztozy_10pd49fi7nn9p38lxuwofwpvv1i9zd2rfcauk-harh9akvdgijouxhe36qajt9t3vmyfqibug3rnjc6xs0)
+
+We are now in the terminal, it should show that we are in the masq folder, if you are not in the masq folder type cd Masq and it should bring you right into the Masq folder
+
+![](/img/assets/rq8m7-saozv9wa9pylyjmhebgrmgt00rgxnoaakhrafpulizsm3v303oa51c_mzc1jidg2ehyvypeban0jsgqa5aujwapkf7rpcxuzrc2e40t7jwbqbceggy6gv-yk-zmkhfxfh6s0)
+
+### Give Execute Permissions to MASQ Binaries
+
+\{% code overflow="wrap" %\}```sh
+chmod +x * # Give execute permissions to all masq files in the folder
+```
+\{% endcode %\}
+
+Now it's time to start the MASQ Daemon (`MASQNode`):
+
+* [ ] Execute `masqnode` by typing `sudo ./MASQNode --initialization` to start the daemon
+* [ ] It may ask for your password, enter it to confirm
+
+You should see this:
+
+![](/img/assets/5m0v6uwks0jtrebqgm2dzybcqqbadhxwdlgdtt4qaeewxwv4mqmevz8sy_o27spvq7b9hcwo_l8gboskejscodqcl4pfcwud2eewcxvy67pkgrhookk0lnlolai3asxya5ft1woes0)
+
+Now open another terminal window **(do not close the daemon window)** in the same manner as before - here we will now start the `masq` interactive tool
+
+* [ ] Execute the file by typing `sudo ./masq`&#x20;
+* [ ] It may ask for your password, enter it to confirm
+
+We are now in **interactive mode** which shows a blinking curser after `masq>` and this makes your life easier (you can stay in standard mode but that requires a few more commands and you will get to know this as you test)
+
+![](/img/assets/h5usmq1s7r_5kcy3ht-ryjehv7rwyjgbiw7cf3esedtnwqbhqewgdq3e8hpsmx2off3zw3ot6n6lspxzosni_amchbvmejx9wnkiyffimr5ef-m4ob1mbm4os8p_rojw8z-qvwh2s0)
+
+Now type: `setup` and press enter
+
+You are now in the setup mode where you can configure the nodes many settings
+
+![](/img/assets/bjf6nyhdkujxtmlcazwebyhox5zwwqqyadmg_9quixmiqkbr78qmwjo-64ealivfrxponupe3j7zwsi2crnmrhmexkw2uuhitxvtfryklbqn_grwwnm1eihxph1rqs2n5eqtfxdjs0)
+
+A breakdown of what these are and how you configure them can be found [here](https://github.com/MASQ-Project/Node/blob/master/README.md#run-masq-node-locally)
+
+[configuring-masq-node.md](../masq-node-from-cli/configuring-masq-node)
+
+:::info
+
+The above link shows there are several things you can configure. This guide will not be going through each one but will give you the easiest way to get CLI up and running and start a Node for testing with the minimum information required.
+
+:::
+
+The above screenshot shows the following message:
+```
+ERRORS:
+neighborhood-mode      Node cannot run as --neighborhood-mode standard without --ip specified
+```
+
+This is telling us to set a value for `ip` which in the most basic way can be supplied a value that satisfies the requirements, but does have to be your actual ip address for testing. Remember we are not setting up a fully functional Node, we are simply doing the basics to allow testing.
+
+In order to specify a ip type `setup --ip 1.2.3.4`and press enter
+
+You should see this:
+
+![](/img/assets/t65etw3c3ski5jiiiuhs_5rc5txrdcbqra3pbhnkmoln6bbwbvrusll9xnvbdwk1e350ur_tmmsao42nr2chask_naifpmobkz556got4wne-xzdwcfpgn4wrnvd0wf2hyknxcms0)
+
+\
+This shows us the setup list again but now the **STATUS** alongside ip is `Set` to 1.2.3.4 and the `ERRORS` message has disappeared.‌
+
+## Starting `masq` Node Process <a href="#starting-masq-node-process" id="starting-masq-node-process"></a>
+
+We can now start the Node by typing… Wait for it. `start`
+
+:::info
+
+`1.2.3.4` is not your real IP - you can find your real IP with the help of websites like [https://whatismyipaddress.com/](https://whatismyipaddress.com/)
+
+:::
+
+If you have followed the guide correctly you should see something like this in the terminal window
+
+![](/img/assets/xewbs2poztzzyas8h-vlbosh-xjaherhkifipcrrop_hjzigom51kt8b1av2w-zxzslbapt1qiovhutiwj8rbhz7ytfqtvk9ldeepteuapgby16enmgvhb9hk-ac6tfmu8imih4ts0)
+
+You should also see some action on the Daemon CLI screen which we opened, started and then left alone.&#x20;
+
+**Congratulations you have taken the first step to testing on CLI!**\
+\
+There is much more to learn about parameters which can be found on the link provided earlier. If you would like to look around and make yourself familiar with things you can use the help commands which are available on 2 places as some things can only be done at certain stages:\
+\
+If you have not yet started the Node using `start`, you can use: `setup --help`&#x20;
+
+If you have started your Node successfully you can use : `help`
+
+## Subverting DNS
+
+To consume over MASQ Network you need to:
+
+* **Proxy your browser** to 127.0.0.1:80 and 127.0.0.1:443 (this is for HTTP and HTTPS traffic) - preferred option
+* Subvert your DNS to 127.0.0.1
+
+To subvert your DNS, find your network adaptor settings (usually its in the system settings of your machine) and change your DNS from 'Automatic' to manually use 127.0.0.1
+
+If you can disable IPv6 as an option is recommended to do this as well.
+
+## Shutting down Node and Reverting DNS
+
+The cleanly shutdown node, in your Node terminal (not the Daemon terminal), type `shutdown` in interactive mode, or `masq shutdown` from a terminal if you aren't in interactive mode.
+
+Ensure that you revert your environment DNS back to Automatic or your default settings before you subverted them, or you will not regain connection to the internet.

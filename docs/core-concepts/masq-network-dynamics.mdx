@@ -1,0 +1,15 @@
+---
+description: How does MASQ Network actually operate?
+---
+
+# Mesh Network (dMeshVPN)
+
+The MASQ Network is a decentralized mesh network Virtual Private Network (dMeshVPN) made up of nodes and groups of nodes called ['neighborhoods.](neighborhoods/)'
+
+In simple terms, a user runs MASQ Node software and their requests for content online are packaged into [CORES Packages](cores-packages/) of data, and these are routed across other nodes in the network.
+
+By using several node 'hops', the content request is retrieved from locations where it is available to other nodes. Additionally the packages are not able to be checked to see where the data started from, or where the end destination is if it is intercepted or snooped by other parties.
+
+The data being routed between nodes is encrypted and only the nodes on the route can handle its next hop on the journey.
+
+With further development, the node hops will increase in number and the CORES packages will be 'masqueraded' as commonplace data types, so even with further inspection from ISPs or other entities, it will **not reveal** that a user is using MASQ Node software - this is called [clandestine routing](clandestine-routing) and is the ultimate goal of the network dynamics part of the project vision.

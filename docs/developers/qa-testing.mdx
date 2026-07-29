@@ -1,0 +1,21 @@
+# QA Testing
+
+These Setup Guides are based around Quality Assurance (QA) Testing for Windows and Linux in CLI
+
+[masq-cli-windows.md](../advanced-use/cli-startup-guides/masq-cli-windows)
+
+[masq-cli-linux.md](../advanced-use/cli-startup-guides/masq-cli-linux)
+
+## Linux Users Read! - Regarding MASQNode daemon
+
+The intention of MASQ Node and the MASQNode daemon is for it to be run by _sudo-ers_ - i.e. not starting MASQNode as a user with root permissions.
+
+If you run MASQNode with a user with root permissions or `root` user itself, it may write logs to the root directory.
+
+To avoid this, if you insist on running MASQNode on a root access user, you can use the command: `sudo -E MASQNode --initialization`&#x20;
+
+OR
+
+You can define the [`--real-user` parameter](/broken/pages/-MQVUIMn2C_3bmF1k3Lw#real-user) in command line with a defined normal user.
+
+#### This is not applicable to Windows environments, as most things will run with administrator access

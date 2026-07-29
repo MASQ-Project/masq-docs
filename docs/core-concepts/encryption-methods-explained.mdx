@@ -1,0 +1,40 @@
+---
+description: >-
+---
+
+# Encryption Methods
+
+## NONE <a href="#none" id="none"></a>
+
+A standard HTTP connection (characterized by a URL beginning with "http://") has no communications security at all. Not only can an eavesdropper see everything transmitted by both the browser and the webserver; but it is also trivially vulnerable to a man-in-the-middle attack where the server is replaced by an impostor that can capture, modify, and re-transmit traffic in both directions, deceiving both client and server into believing things that aren't true.
+
+Node does not compete with this level of security. Node allows you to employ this level of security, but if this is what you want, it's best not to use Node at all.
+
+## ENCRYPTED <a href="#encrypted" id="encrypted"></a>
+
+TLS (characterized by a URL beginning with "https://") is an example of an encrypted communications link. An eavesdropper on an encrypted link would be able to tell where the browser was running, and where the server was running. While the eavesdropper would be able to see the data passing between the two, and perhaps make guesses about its nature based on how much of it there was in each direction, how it was divided into packets, and statistics about the timing, the data the eavesdropper could see would be unintelligible, because it was encrypted. Also, if the eavesdropper attempted to interfere with the data stream, even by changing as little as a single bit of it, the recipient of the changed data would instantly be able to tell that there had been tampering. Finally, since identities are guaranteed by digital certificates, an attacker could not credibly pretend to be the real server the browser was looking for unless he had stolen the real server's private signing key.
+
+Node does not compete here either. Node allows--and encourages--encrypted connections, but it mainly addresses operations on a lower level.
+
+## UNTRACEABLE <a href="#untraceable" id="untraceable"></a>
+
+An untraceable communications link generally consists of multiple point-to-point hops that are combined to look to browser and server like a single network connection. The idea is that an eavesdropper must not only contend with the fact that the data he sees is encrypted, but also the fact that just because it's coming across the link he's eavesdropping on doesn't mean its original source was one end of that link, or that its ultimate destination is the other end of that link. One end or the other, or both, could be just a relay, and the object of the eavesdropper's interest might lie beyond the relay. There's also the fact that a particular link may be in use by a number of different clients and servers simultaneously, so traffic analysis by packet sizes or timings is greatly complicated. Untraceable comm links trade off increased latency (because the traffic has to traverse more network links) for increased security.
+
+VPNs operate at this level. VPNs usually provide two hops--one from your machine to a central VPN proxy, and one from the VPN proxy to whatever website you're accessing. Eavesdroppers on the server side of the proxy can tell what servers are being accessed, and eavesdroppers on the client side can tell who's using the VPN; but it's difficult to match users with servers.
+
+Tor operates at this level, but a step beyond the VPN, in that the Tor network will provide several hops, not just two. There's a well-known list of exit nodes for eavesdroppers to choose from, but there's no good way to locate originating nodes: they could be anywhere. In the Beta software phase (v0.x) MASQ Node also operates at this level - Node provides three hops (four if you count the final hop to the server, as we did for VPNs above) of indirection. With Node, though, there is no published list of exit Nodes: any Node can be an exit Node. Also, Node carries only TLS connections between the browser and the server, not between the exit Node and the server the way Tor does. This means that establishing TLS connections is slower for Node than for Tor, but that:
+
+* even an evil, compromised exit Node still can't see your unencrypted data, the way a Tor exit node can; and
+* it's much more difficult to hold you legally responsible for data that passes through your Node because you can prove you couldn't have seen it.
+
+## CLANDESTINE <a href="#clandestine" id="clandestine"></a>
+
+A clandestine communications link is one that makes it difficult for an eavesdropper to tell that an effort to hide communications is even being made. Traffic that might raise an attacker's eyebrows is disguised within traffic that's innocent and commonplace.
+
+Both VPNs and Tor don't compete on this level: an attacker might not know the nature of the traffic he sees, and he might not be able to tell exactly where it's coming from or exactly where it's going, but he can definitely tell that it's VPN or Tor traffic and identify one or both ends of the link he's listening on as VPN or Tor.
+
+Once MASQ Node is fully fledged, it will be a clandestine communications channel. Attempts to access forbidden material might be disguised as harmless requests for cat videos, or as multiplayer computer-game traffic, or a Skype call, or whatever.
+
+_**There's a lot of work to do between Node v0.x and the clandestine Node - its the ultimate goal and vision of MASQ.**_
+
+This part is critical for the security of users in places like China and Russia, where the detection of using anti-censorship tools like VPN, Tor and Node can come with severe penalties.

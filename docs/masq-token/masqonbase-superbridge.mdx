@@ -1,0 +1,59 @@
+---
+description: >-
+---
+
+# Bridge to Base
+
+:::info
+
+Currently there are no native bridges for $MASQ from Polygon directly to Base - this will require bridging back to Ethereum using the official Polygon bridge at:\
+[https://portal.polygon.technology](https://portal.polygon.technology)
+
+The MASQ team are researching reliable methods for this in the future.
+
+:::
+
+## Prerequisites
+
+* You need to have MASQ Tokens and ETH in your wallet to pay gas fees.
+* Add Base Mainnet to your wallet (you can use [chainlist.org](https://chainlist.org) or details below)
+* Add $MASQ Base contract to your Custom Tokens if required\
+  `0x45D9C101a3870Ca5024582fd788F4E1e8F7971c3`
+
+| Name                                            | Value                                                        |
+| ----------------------------------------------- | ------------------------------------------------------------ |
+| Network Name                                    | Base Mainnet                                                 |
+| Description                                     | Public Mainnet for Base                                      |
+| <p>RPC Endpoint URL<br /><em>(suggested)</em></p> | [https://base-pokt.nodies.app](https://base-pokt.nodies.app) |
+| Chain ID                                        | 8453                                                         |
+| Currency Symbol                                 | ETH                                                          |
+| Block Explorer                                  | [https://basescan.com](https://basescan.com)                 |
+
+## Superbridge Guide
+
+:::info
+
+If you are new to Base, to interact with your bridged tokens you will need to bridge some ETH. (All gas fees are dramatically lower on Base chain)
+
+:::
+
+<figure><img src="/img/assets/image-2.png" alt="" width="341"  /><figcaption></figcaption></figure>
+
+1. Go to the Superbridge App [https://superbridge.app/base/masq](https://superbridge.app/base/masq)\
+   (if the updated "v3" UI doesn't load you can use the v2 legacy site with exact same steps [https://v2.superbridge.app/base/masq](https://v2.superbridge.app/base/masq) )
+2. Connect your Ethereum wallet by clicking "Connect Wallet" and select the wallet you hold your MASQ tokens on the eth chain.
+3. Enter the amount of MASQ you wish to bridge to Base.
+4. Read and confirm all the confirmations and Click "Approve" button
+5. Once approved, click "Deposit" button
+6. Confirm the transaction in your Ethereum wallet. This will send your MASQ Tokens to the bridging contract.
+7. Once the transaction has been confirmed, it will take around 2-3 mins for operation to be completed. You can view the status on the "Activity" banner button on bottom of screen.
+8. When L2 confirmation is completed you will see your bridged MASQ tokens on the Base network in your wallet
+9. For MASQ tokens to show in your wallet, add the [MASQ Base contract address](masqonbase-superbridge#prerequisites)
+
+## Job Done!
+
+You have successfully bridged your MASQ Tokens from Ethereum to Base and should now see your Base $MASQ tokens displayed in your wallet.
+
+**Supporting Base allows MASQ Network to leverage all the key benefits of a thriving Layer-2 chain and showcase the live working products to the next quarter billion retail users onboarding into web3 through Coinbase and Base.**
+
+**Keep up to date with the #MASQonBase progress by following us on** [**X**](https://x.com/MASQ_ai) **and joining our** [**Discord**](https://discord.gg/masq)**!**

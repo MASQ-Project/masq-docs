@@ -1,0 +1,11 @@
+# User permissions --real-user
+
+## User permissions --real-user
+
+The Node will refuse to run unless it can relinquish root privileges once it has opened its ports. Long-running root-privileged servers with network access are a serious security risk.
+
+**If you are running on Linux or using a Docker container that doesn’t have a non-root user, that’s a problem.**
+
+If it does have a non-root user, specify that user’s uid, gid, and home directory to masq:
+
+`masq setup —real-user 1000:1000:/home/username`

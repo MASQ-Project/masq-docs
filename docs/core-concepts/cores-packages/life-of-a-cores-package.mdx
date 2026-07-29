@@ -1,0 +1,82 @@
+# Life of a CORES Package
+
+1. The client (probably a browser) sends a request to the Proxy Server in the Originating Node (A).
+2.  The Proxy Server composes a Route and a Payload and sends them to the Hopper, which combines them into a CORES package and sends it to the first Relay Node (B). That CORES package is encrypted for Node B, and it contains the following information:
+
+    **Route:**
+
+    a) The public key of the second Relay Node (C) and a Component tag for the Hopper, encrypted for Node B.\
+    b. The public key of the Exit Node (D) and a Component tag for the Hopper, encrypted for Node C. \
+    c. The public key of the second Relay Node (C) and a Component tag for the Proxy Client, encrypted for Node D. \
+    d. The public key of the first Relay Node (B) and a Component tag for the Hopper, encrypted for Node C. \
+    e. The public key of the Originating Node (A) and a Component tag for the Hopper, encrypted for Node B. \
+    f. A null public key and a Component tag for the Proxy Server, encrypted for Node A.\
+    **Payload, encrypted for Node D:**\
+    a. The bits of the client's (browser's) request packet\
+    b. An alternative key of the Originating Node (A).
+3. The first Relay Node (B) decrypts the CORES package, and further removes and decrypts the topmost hop of the Route (a). It sees Node C's public key and the Component tag for the Hopper, so it forwards the Route, C's public key, and the encrypted Payload to its Hopper.
+4. The Hopper generates a hunk of random garbage that's about the same size as a public key and a Component tag and appends it to the end of the Route, so that the Route stays about the same length and an observer can't tell how close to its destination it's getting. Then it composes another CORES package and sends it to Node C. This second CORES package is encrypted for Node C, and contains:\
+   **Route:**\
+   b. The public key of the Exit Node (D) and a Component tag for the Hopper, encrypted for Node C.\
+   c. The public key of the second Relay Node (C) and a Component tag for the Proxy Client, encrypted for Node D.\
+   d. The public key of the first Relay Node (B) and a Component tag for the Hopper, encrypted for Node C.\
+   e. The public key of the Originating Node (A) and a Component tag for the Hopper, encrypted for Node B.\
+   f. A null public key and a Component tag for the Proxy Server, encrypted for Node A.\
+   g. A hunk of random garbage about the same size as these other Route pieces.\
+   **Payload, encrypted for Node D:**\
+   a. The bits of the client's (browser's) request packet\
+   b. An alternative key of the Originating Node (A).
+5. The second Relay Node (C) decrypts the CORES package, and further removes and decrypts the topmost hop of the Route (b). It sees Node D's public key and the Component tag for the Hopper, so it forwards the Route, D's public key, and the encrypted Payload to its Hopper.
+6. The Hopper generates another hunk of random garbage and appends it to the end of the Route. Then it composes another CORES package and sends it to Node D. This third CORES package is encrypted for Node D, and contains:\
+   **Route:**\
+   c. The public key of the second Relay Node (C) and a Component tag for the Proxy Client, encrypted for Node D.\
+   d. The public key of the first Relay Node (B) and a Component tag for the Hopper, encrypted for Node C.\
+   e. The public key of the Originating Node (A) and a Component tag for the Hopper, encrypted for Node B.\
+   f. A null public key and a Component tag for the Proxy Server, encrypted for Node A.\
+   g. A hunk of random garbage about the same size as these other Route pieces.\
+   h. A hunk of random garbage about the same size as these other Route pieces\
+   **Payload, encrypted for Node D:**\
+   a. The bits of the client's (browser's) request packet\
+   b. An alternative key of the Originating Node (A).
+7. The Exit Node (D) decrypts the CORES package, and further removes and decrypts the topmost hop of the route (c). It sees Node C's public key and the Component tag for the Proxy Client, so it forwards the Route, C's public key, and the encrypted Payload to its Proxy Client.
+8. The Proxy Client decrypts the Payload to find the bits of the client's request and public key of the Originating Node (A). It sends the request to the indicated server and awaits a response. When the response arrives, the Proxy Client encrypts it with Node A's public key and makes a Payload, which it sends, along with the remaining Route and C's public key to its own Hopper.
+9. The Hopper adds another hunk of random garbage to the Route, then composes a fourth CORES package, encrypts it for Node C, and sends it along:\
+   **Route:**\
+   d. The public key of the first Relay Node (B) and a Component tag for the Hopper, encrypted for Node C.\
+   e. The public key of the Originating Node (A) and a Component tag for the Hopper, encrypted for Node B.\
+   f. A null public key and a Component tag for the Proxy Server, encrypted for Node A.\
+   g. A hunk of random garbage about the same size as these other Route pieces.\
+   h. A hunk of random garbage about the same size as these other Route pieces.\
+   i. A hunk of random garbage about the same size as these other Route pieces.\
+   **Payload, encrypted for Node A:**\
+   a. The bits of the server's response packet
+10. The second Relay Node (C) decrypts the CORES package, and further removes and decrypts the topmost hop of the Route (d). It sees Node B's public key and the Component tag for the Hopper, so it forwards the Route, B's public key, and the encrypted Payload to its Hopper.
+11. The Hopper adds more garbage to the Route, then composes a fifth CORES package, encrypted for Node B, and sends it:\
+    **Route:**\
+    e. The public key of the Originating Node (A) and a Component tag for the Hopper, encrypted for Node B.\
+    f. A null public key and a Component tag for the Proxy Server, encrypted for Node A.\
+    g. A hunk of random garbage about the same size as these other Route pieces.\
+    h. A hunk of random garbage about the same size as these other Route pieces.\
+    i. A hunk of random garbage about the same size as these other Route pieces.\
+    j. A hunk of random garbage about the same size as these other Route pieces.\
+    **Payload, encrypted for Node A:**\
+    a. The bits of the server's response packet
+12. The first Relay Node (B) decrypts the CORES package, and further removes and decrypts the topmost hop of the Route (e). It sees Node A's public key and the Component tag for the Hopper, so it forwards the Route, A's public key, and the encrypted Payload to its Hopper.
+13. The Hopper adds more garbage to the Route, then composes a sixth CORES package, encrypted for Node A, and sends it:\
+    **Route:**\
+    f. A null public key and a Component tag for the Proxy Server, encrypted for Node A.\
+    g. A hunk of random garbage about the same size as these other Route pieces.\
+    h. A hunk of random garbage about the same size as these other Route pieces.\
+    i. A hunk of random garbage about the same size as these other Route pieces.\
+    j. A hunk of random garbage about the same size as these other Route pieces.\
+    k. A hunk of random garbage about the same size as these other Route pieces.\
+    **Payload, encrypted for Node A:**\
+    a. The bits of the server's response packet
+14. The Originating Node (A) decrypts the CORES package, and further removes and decrypts the topmost hop of the route (f). It sees the null public key and the Component tag for the Proxy Server, so it forwards the encrypted Payload to its Proxy Server.
+15. The Proxy Server decrypts the Payload to find the bits of the server's response. It sends the response to the client, and the transaction is complete.
+
+#### Notes:
+
+* CORES stands for Client, Originating, Relay, Exit, Server. It probably ought to be CORRESERROC instead, but that's a mouthful.
+* In this example, the same two Relay Nodes are used for the response as were used in the request, and in the opposite order. This is certainly a real-life possibility, but it's more likely that completely different Relay Nodes will be used for the response as were used for the request.
+* Eventually, the hunks of random garbage will be replaced with encrypted route-log information so that a CORES package that is undeliverable can be returned to its originator A) without traveling its whole route, and B) with diagnostic information to tell the Originating Node what went wrong.

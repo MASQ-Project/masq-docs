@@ -1,0 +1,83 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Providing Feedback
+
+The MASQ team utilizes [Canny](https://masq-network.canny.io) to log and address feedback from testers - please send us some feedback on features or bugs you find, so we can work on them!
+
+
+
+:::info
+
+### **Helpful Tips for Bug-Reports!:**
+
+* [ ] Specify your OS name and version
+* [ ] Specify which version you used - or we won't know what build you're using&#x20;
+* [ ] Please attach a screenshot to show the bug/location of the bug if possible
+
+:::
+
+### Example:
+
+<div align="left"><figure><img src="/img/assets/image-63.png" alt="" width="536"  /><figcaption></figcaption></figure></div>
+
+## Inspecting MASQ Core Log Files
+
+Here are the common locations of MASQ Core logs for each OS
+
+<Tabs>
+<TabItem value="windows" label="Windows">
+
+Daemon/Node Launch Logs - _System logs in EventViewer_
+
+Daemon Logs: `C:\Windows\System32\config\systemprofile\AppData\Local\MASQ\MASQNode_daemon_rCURRENT`
+
+Node Logs:
+
+`C:\Windows\System32\config\systemprofile\AppData\Local\MASQ\`
+
+:::info
+
+On some Windows user profiles, the file path may be specific to the logged in user:\
+`C:\Users%USERNAME%\AppData\Local\MASQ\`
+
+:::
+
+</TabItem>
+<TabItem value="mac" label="Mac">
+
+Daemon/Node Launch Logs
+
+`/var/log/MASQDaemon.log`
+
+Daemon Logs
+
+`/var/root/Library/Application Support/MASQ/MASQNode_daemon_rCURRENT.log`&#x20;
+
+Node Logs
+
+`~/Library/Application Support/MASQ`
+
+</TabItem>
+<TabItem value="linux" label="Linux">
+
+Linux: Daemon/Node Launch Logs
+
+`sudo journalctl -u snap.masq.masqnode`
+
+Daemon Logs
+
+`/root/snap/masq/x1/.local/share/MASQ`
+
+Node Logs&#x20;
+
+`~/snap/masq/x1/.local/share/MASQ`
+
+</TabItem>
+</Tabs>
+
+:::warning
+
+#### Ensure that you save and send through logs to our dev team, when experiencing any bug or software behaviour that results in serious software crashes or network failure.
+
+:::

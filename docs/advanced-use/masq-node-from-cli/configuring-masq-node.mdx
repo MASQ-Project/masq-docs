@@ -1,0 +1,200 @@
+---
+description: >-
+---
+
+# Configuring MASQ Node
+
+## Prerequisites
+
+* [ ] Find and delete your `node-data.db` from your local disk, **if you have run MASQ Node in testing before**
+
+:::info
+
+(its usually in `C:\Users\xxxxx\AppData\Local\MASQ` on Windows)
+
+:::
+
+* [ ] Open CLI window with elevated-permissions (as Admin) and start the Daemon in its own terminal window
+* [ ] ![](/img/assets/image-16.png)
+* [ ] Have your testing seed words (mnemonic phrase) ready to use the `recover-wallets` command (and derivation paths of earning and consuming wallets if not using defaults)
+* [ ] Place to write down seed words if you are generating new wallets for using Node, using the `generate-wallets` command
+* [ ] Open a second terminal window to interact with the `masq` software CLI client
+
+## Configuring using commands
+
+MASQ Node lets you run in interactive-mode by running `masq` command from your binary directory - this will show a command line prefix of `masq>` indicating you are in interactive mode
+
+From here you will be able to execute consecutive software commands.
+
+Type `setup` to output the default settings&#x20;
+
+Here is an example on Windows cmd, in the second command window you will be using:
+```
+C:\Users\*****\Desktop\Node\GH-352\bin>masq
+masq> setup
+NAME                   VALUE                                        STATUS
+blockchain-service-url                                              Required
+chain                  mainnet                                      Default
+clandestine-port                                                    Required
+config-file            config.toml                                  Default
+consuming-private-key  ******************************************** Blank
+crash-point                                                         Blank
+data-directory         C:\Users\*****\AppData\Local\MASQ\mainnet    Default
+db-password            ****************                             Required
+dns-servers            1.1.1.1                                      Default
+earning-wallet                                                      Blank
+gas-price              1                                            Default
+ip                                                                  Required
+log-level              warn                                         Default
+neighborhood-mode      standard                                     Default
+neighbors                                                           Blank
+
+ERRORS:
+neighborhood-mode      
+Node cannot run as --neighborhood-mode standard without --ip specified
+
+masq>
+```
+
+Notice there are headings for NAME of parameter, VALUE and STATUS
+
+The STATUS column is important as it will tell the user which parameters are set, blank and defaulted.
+
+:::danger
+
+Parameters with the 'Required' status will alert you when trying to start Node when they are not configured. In the above example, the ERROR message explains you cannot run without specifying your public IP address
+
+:::
+
+### Initial `IP` - Required Config
+
+As a minimum to run the `start` command with `--neighborhood-mode` set to standard, you will need to specify an IP address for the node.
+
+For local testing you can configure this to anything you wish, but to join **Base mainnet**, this should be your public IP address (the IP address facing the internet world on the outside of your router)
+
+In interactive mode this is simple to change
+```
+masq> setup --ip 1.2.3.4
+NAME                   VALUE                                        STATUS
+blockchain-service-url                                              Required
+chain                  mainnet                                      Default
+clandestine-port                                                    Required
+config-file            config.toml                                  Default
+consuming-private-key  ******************************************** Blank
+crash-point                                                         Blank
+data-directory         C:\Users\*****\AppData\Local\MASQ\mainnet    Default
+db-password            ****************                             Required
+dns-servers            1.1.1.1                                      Default
+earning-wallet                                                      Blank
+gas-price              1                                            Default
+ip                     1.2.3.4                                      Set
+log-level              warn                                         Default
+neighborhood-mode      standard                                     Default
+neighbors                                                           Blank
+
+masq>
+```
+
+You can see the setup values are output again and the ip address is stored with **STATUS as Set** - the error message also goes away.
+
+### Setting Password `--db-password`
+
+Node will require a password to encrypt the database sensitive information such as the consuming-private-key and any references to the mnemonic seed words.
+
+Before Node is running, you can set this password using `--db-password` setup command
+
+`setup --db-password <VALUE>`
+```
+masq> setup --db-password 1234
+
+NAME                   VALUE                                        STATUS
+blockchain-service-url                                              Required
+chain                  mainnet                                      Default
+clandestine-port                                                    Required
+config-file            config.toml                                  Default
+consuming-private-key  ******************************************** Blank
+crash-point                                                         Blank
+data-directory         C:\Users\*****\AppData\Local\MASQ\mainnet    Default
+db-password            ****************                             Set
+dns-servers            1.1.1.1                                      Default
+earning-wallet                                                      Blank
+gas-price              1                                            Default
+ip                     1.2.3.4                                      Set
+log-level              warn                                         Default
+neighborhood-mode      standard                                     Default
+neighbors                                                           Blank
+
+masq>
+```
+
+:::warning
+
+You must also start the Node and run the `set-password` command to initialize the database correctly for the current chain you have set.
+
+See below
+
+:::
+
+#### Password Commands While Node is Running
+
+While Node is running, you must set the password interactively, without bringing down the Node instance
+
+To configure the password while Node is running, there are 3 commands that interact with the `--db-password` parameter value:
+
+* `set-password`
+* `check-password`
+  * USAGE: check-password \[db-password]
+* `change-password`
+  * USAGE: check-password \<OLD-DB-PASSWORD> \<NEW-DB-PASSWORD>
+
+`set-password` simply sets the password - there are no default requirements
+
+`check-password` will check the current db-password value is correct
+
+`change-password` will change the current db-password value if correct current password is input
+
+:::warning
+
+WARNING - the `db-password` VALUE can be set to a "" blank VALUE meaning that it can be saved without any character. Be careful when setting this.
+
+:::
+
+### Other Password Information
+
+Whenever the database password is changed, the Node should send out a broadcast to all connected UIs (other than the one changing the password) notifying them that there has been a change.
+
+## Configuration using Config Toml
+
+The easiest way to configure and save your settings is using a config.toml file - this will allow you to load all your configuration by passing in the config.toml when initializing the Daemon.
+
+Below is an example config.toml file
+
+* Open up Notepad to create a new text file
+* Copy and Paste below, making sure each setting is preserved on its own line
+```
+chain="base-mainnet"
+blockchain-service-url="https://mainnet.base.org"
+clandestine-port="xxxxx"
+db-password="xxxxx"
+dns-servers="4.2.2.2,8.8.8.8"
+earning-wallet=""
+ip="xxxxx"
+gas-price=30
+log-level="debug"
+neighborhood-mode="standard"
+#real-user=""
+neighbors=""
+```
+
+* Add values for your specific configuration in between the quote marks with x's marked `"xxxxx"`
+* `clandestine-port` - this is the port you want to keep using for MASQ to communicate in the network, so you can add a port forward and keep it the same in your router config **- its best to choose one here thats 4-5 digits long. If left blank MASQ will randomly assign one.**
+* `db-password` - this is a database password to encrypt sensitive information&#x20;
+* `ip` - this is your public IP found on your computer network adaptor, or simply going to a site like [ipchicken.com](https://www.ipchicken.com)
+
+### Saving the config.toml
+
+After completing the parameter in the file, save it and make sure the file extension `.toml`&#x20;
+
+If your system asks to change file extension click Yes
+
+![](/img/assets/image-55.png)

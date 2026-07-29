@@ -1,0 +1,89 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# MASQ Daemon Commands
+
+The MASQ Daemon and the MASQ Node are two different programs **that share the same binary**.
+
+If you start that binary with the `--initialization` parameter, it will become the Daemon; if you start it without the `--initialization` parameter, it will become the Node.
+
+Running the Daemon is like running in a "service mode" which will allows any UI (`masq` cli tool, MASQ browser or other UI) to interact with the Daemon and instruct it to config and start MASQ Node.
+
+## Daemon "service-mode"
+
+Running the Daemon will allow it to listen on default port 5333 (see --ui-port) for any UI messages sent over websockets. If these commands are Node specific, they will be redirected to Node if Node is running. If not the Daemon will inform you it cannot handle as the Node isn't running.
+
+<Tabs>
+<TabItem value="windows" label="Windows">
+
+Running the Daemon in Windows:\
+Navigate to where you have the Node binaries.
+
+:::info
+
+You will need to run a Terminal window as Administrator
+
+:::
+```c
+MASQNode --initialization
+```
+
+</TabItem>
+<TabItem value="linux" label="Mac/Linux">
+
+Running the Daemon in Mac/Linux:\
+Navigate to where you have the Node binaries.
+
+```bash
+$ sudo nohup ./MASQNode --initialization
+```
+
+</TabItem>
+</Tabs>
+
+## Dump Config \`--dump-config\`
+
+The Daemon has a space inside it to hold Setup information for the Node. A UI can query the Daemon to get a dump of the information in the Setup space. When the Node is not running, the information in the Setup space can be changed by the UI. When the Node is running, the information in the Setup space is frozen and immutable. This is so that when the Node is running, you can use the UI to query the Daemon to discover the configuration with which the Node was started.
+
+* `./MASQNode --dump-config --chain <CHAIN-NAME>`  shows the contents of the configuration table of the Node's database from specific chain directory. The secret items - particularly `exampleEncrypted`, `pastNeighbors`, and `seed`, should be unintelligible strings of hexadecimal.
+* `./MASQNode --dump_config --db-password` should show the same values for the non-secret items, but it should show decrypted secret values. `exampleEncrypted` should be a 64-character hexadecimal value. (If it's a two-character hexadecimal value, that's because the database wasn't written by this version of MASQNode; it's okay.) `seed` should be a 128-character hexadecimal value. `pastNeighbors` should be a comma-separated list of Node descriptors.
+
+### **Usage**
+
+The `--dump-config` command requests a dump of the Node's current configuration information. If you know the database password, provide it, and the response will contain the secrets in the database.
+
+If you don't supply a password, or you do but it's wrong, you'll still get a response, but it will have only public information: the secrets will be missing.
+
+Another reason the secrets might be missing is that there are not yet any secrets in the database.
+```
+./MASQNode --dump-config --db-password <PASSWORD> --chain <CHAIN-NAME>
+```
+
+The output should appear like this:
+```
+"payload": {
+    "currentSchemaVersion": <string>,
+    "clandestinePort": <string>,
+    "gasPrice": <number>,
+    "mnemonicSeedOpt": <optional string>,
+    "consumingWalletDerivationPathOpt": <optional string>,
+    "earningWalletAddressOpt": <optional string>,
+    "pastNeighbors": [
+        <string>,
+        <string>, ...
+    ],
+    "startBlock": <number>
+}
+```
+
+### **Output Description**
+
+This conveys the Node's current configuration information. Some of it is optional: if it's missing, it might be because it hasn't been configured yet, or it might be because it's secret and you didn't provide the correct database password. If you want to know whether the password you have is the correct one, try the `checkPassword` command.
+
+* `currentSchemaVersion`: This will be a three-part version number for the database schema. This will always be the same for a given version of Node. If you upgrade your Node, and the new Node wants to see a later schema version in the database, it will migrate your existing data to the new schema and update its schema version. If this attempt fails for some reason, this value can be used to diagnose the issue.
+* `clandestinePort`: The port on which the Node is currently listening for connections from other Nodes.
+* `gasPrice`: The Node will not pay more than this number of wei for gas to complete a transaction.
+* `mnemonicSeedOpt`: This is a secret string of hexadecimal digits that corresponds exactly with the mnemonic phrase, plus any "25th word" mnemonic passphrase. You won't see this if the password isn't correct. You also won't see it if the password is correct but the seed hasn't been set yet.
+* `consumingWalletDerivationPathOpt`: This is the derivation path (from the mnemonic seed) of the consuming wallet. More than likely, it's m/44'/60'/0'/0/0.
+* `earningWalletAddressOpt`: The wallet address for the earning wallet. This is not secret, so if you don't get this field, it's because it hasn't been set yet.
+* `pastNeighbors`: This is an array containing the Node descriptors of the neighbors the Node is planning to try to connect to when it starts up next time.

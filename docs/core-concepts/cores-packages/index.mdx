@@ -1,0 +1,17 @@
+# CORES Packages
+
+A CORE(s) package is a series of instructions bundled in a way that allows each node within the network to receive just enough information to make a decision on how to handle a request. CORES stands for **C**lient-**O**rigin-**R**elay-**E**xit-**S**erver
+
+CORE(s) packages contain layers of requests that inform nodes how to perform one of three actions.
+
+1. Create the request
+2. Pass the request along
+3. Process the request.
+
+Each Node that handles a CORES package plays a specific role in the life-cycle of the package route:
+
+* **Client:** This is the device that is initializing the request such as a browser, or a video game.
+* **Originator:** The identity of the originating request node.
+* **Relay:** Identifies Nodes that will be used to hop along routes to get to its destination.
+* **Exit:** The exit node will make the true web request on behalf of the originator and send it back along the route stack.
+* **Server:** Information about the server that is hosting the requested information.

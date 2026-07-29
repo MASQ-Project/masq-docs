@@ -1,0 +1,84 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Port 80 (common to Windows)
+
+The MASQ node software relies on listening to port 80 to determine if requests need to be routed internally to the DNS proxy that sends traffic across the MASQ Network.
+
+This is the error that will result in the logs:
+
+`2022-11-20 11:00:52 [DEBUG] stderr: "2022-11-20 17:00:52.902 Thd1: ERROR: PanicHandler: src\bootstrapper.rs:465:21 - Could not listen on port 80: An attempt was made to access a socket in a way forbidden by its access permissions. (os error 10013)"`
+
+Sourcing your logs is important for Beta testing, and you can locate them depending on your Operating System below:
+
+<Tabs>
+<TabItem value="windows" label="Windows">
+
+Daemon/Node Launch Logs - _System logs in EventViewer_
+
+Daemon Logs: `C:\Windows\System32\config\systemprofile\AppData\Local\MASQ\MASQNode_daemon_rCURRENT`
+
+Node Logs:
+
+`C:\Windows\System32\config\systemprofile\AppData\Local\MASQ\base-mainnet`
+
+</TabItem>
+<TabItem value="macos" label="macOS">
+
+Daemon/Node Launch Logs
+
+`/var/log/MASQDaemon.log`
+
+Daemon Logs
+
+`/var/root/Library/Application Support/MASQ/MASQNode_daemon_rCURRENT.log`&#x20;
+
+Node Logs
+
+`~/Library/Application Support/MASQ`
+
+</TabItem>
+<TabItem value="linux" label="Linux">
+
+Linux: Daemon/Node Launch Logs
+
+`sudo journalctl -u snap.masq.masqnode`
+
+Daemon Logs
+
+`/root/snap/masq/x1/.local/share/MASQ`
+
+Node Logs&#x20;
+
+`~/snap/masq/x1/.local/share/MASQ`
+
+</TabItem>
+</Tabs>
+
+\{/* broken content-ref removed: /broken/pages/iNT4STrBU0qWOQQ3Dn8A */\}
+
+### Port Binding
+
+Some Operating System services bind to port 80 (especially in Windows), which may include, but not limited to:
+
+* running Apache server
+* Torrent software
+* running Plex media server
+* Custom NAS configurations
+* Skype
+* W3SVC (IIS World Wide Web Publishing Service) (specific to Windows)
+
+### Finding Services using Port 80
+
+#### Windows:
+
+1. Open a cmd terminal
+2. Use this command to find out process that is using port 80: `netstat -aon | findstr "80"`
+3. This will display a table showing processes and the Process ID (PID) that are using port 80
+4. You can inspect that PID process is on there with: `tasklist | findstr <PID>`
+5. Go to Task Manager to inspect if it is a process that can be ended
+6. End that process if you can do so safely (if its not Windows PID 4, which is system process)
+
+This video below is also helpful to 'free up' port 80.
+
+[Open link](https://www.youtube.com/watch?v=hcH8LBYkY8Q)

@@ -1,0 +1,119 @@
+# Setting MASQ Wallets
+
+## Initial Set-Up
+
+MASQ Node is configured to have wallets stored, sensitive information encrypted in the node-data.db database file and remain unmodified so the Node user can satisfy all debts and earnings from routing traffic in and out across the network.
+
+For a security-first approach, wallets cannot be configured unless a database password (`--db-password`) has been set.
+
+There are two Node **commands** available to load wallets into MASQ Node:
+
+* [`generate-wallets`](setting-masq-wallets#generate-wallets)
+* [`recover-wallets`](setting-masq-wallets#recover-wallets)
+
+:::info
+
+You won't be able to use the `generate-wallets` or `recover-wallets` commands if the database already has wallet information, or if the database doesn't have a password set [(see`db-password`](masq-node-from-cli/cli-faq#whats-the-wallet-db-password) and [setting password](masq-node-from-cli/configuring-masq-node#configuring-using-commands) )
+
+:::
+
+:::tip
+
+### **Derivation Paths:**
+
+Derivation paths are a specific format for ERC20 and Ethereum based tokens.
+
+Make sure you use the correct format, and put in quotation marks "" in commands
+
+**FORMAT - m/44'/60'/0'/0/0**
+
+e.g. `"m/44'/60'/0'/0/1"`
+
+:::
+
+## `generate-wallets`
+
+This command will generate and return an earning and consuming wallet using BIP39 mnemonic cryptography securely within the Node software. If you want to reference the wallet derivations and algorithms go to Ian Coleman's BIP39 Mnemomic Code Converter page - its a great resource!
+
+[Open link](https://iancoleman.io/bip39/)
+
+You shouldn't be able to supply any erroneous information (for example, requesting a 10-word phrase, or supplying an invalid derivation path like 'booga'). **If you supply the same derivation path for both consuming and earning wallets, you should get the same address back for both of them.**&#x20;
+
+### `generate-wallets -h` **HELP Output**
+```aspnet
+Generate a pair of wallets (consuming and earning) for the Node if they haven't been generated already
+
+USAGE:
+    generate-wallets [OPTIONS] --db-password <DB-PASSWORD>
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+OPTIONS:
+        --consuming-path <CONSUMING-PATH>    Derivation path from which to generate the consuming wallet from which your
+                                             bills will be paid. Remember to put it in double quotes; otherwise the
+                                             single quotes will cause problems [default: m/44'/60'/0'/0/0]
+        --db-password <DB-PASSWORD>          The current database password (a password must be set to use this command)
+        --earning-path <EARNING-PATH>        Derivation path from which to generate the earning wallet from which your
+                                             bills will be paid. Can be the same as consuming-path. Remember to put it
+                                             in double quotes; otherwise the single quotes will cause problems [default:
+                                             m/44'/60'/0'/0/1]
+        --language <LANGUAGE>                The language in which the wallets' mnemonic phrase should be generated
+                                             [default: English]  [possible values: English, Chinese, Traditional
+                                             Chinese, French, Italian, Japanese, Korean, Spanish]
+        --passphrase <PASSPHRASE>            An optional additional word(it can be any word) that the wallet-recovery
+                                             process should require at the end of the mnemonic phrase
+        --word-count <WORD-COUNT>            The number of words that should be generated for the wallets' mnemonic
+                                             phrase [default: 24]  [possible values: 12, 15, 18, 21, 24]
+```
+
+## `recover-wallets`
+
+The recover-wallets command will load any existing wallets you may have already set up, deriving it from the mnemonic phrase seed words provided and specific derivation paths for the earning and consuming wallets
+
+In `masq`, type `recover-wallets` and press Enter to see the help message that describes how it should be used.
+
+The format for the command is:
+```aspnet
+recover-wallets [OPTIONS] --consuming-path <CONSUMING-PATH> --db-password <DB-PASSWORD> --mnemonic-phrase <MNEMONIC-PHRASE> <--earning-path <EARNING-PATH>|--earning-address <EARNING-ADDRESS>>
+```
+
+`--mnemonic-phrase` - Can be right, or missing, or have an unacceptable number of words, or contain words that aren't among the 2048 that are valid for the selected language. Remember to put it in double quotes; otherwise the single quotes will cause problems
+
+`--earning-address` - Can be specified, or absent, or invalid--that is, not `0x` followed by 40 hexadecimal digits.
+
+**Also:** you should be forced to specify exactly one of `--earning-path` and `--earning-address`. Specifying neither of them should be an error, and specifying both of them should also be.
+
+### `recover-wallets -h` **HELP Output**
+```aspnet
+Recover a pair of wallets (consuming and earning) for the Node if they haven't been recovered already
+
+USAGE:
+    recover-wallets [OPTIONS] --consuming-path <CONSUMING-PATH> --db-password <DB-PASSWORD> --mnemonic-phrase <MNEMONIC-PHRASE> <--earning-path <EARNING-PATH>|--earning-address <EARNING-ADDRESS>>
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+OPTIONS:
+        --consuming-path <CONSUMING-PATH>      Derivation path from which to generate the consuming wallet from which
+                                               your bills will be paid. Remember to put it in double quotes; otherwise
+                                               the single quotes will cause problems
+        --db-password <DB-PASSWORD>            The current database password (a password must be set to use this
+                                               command)
+        --earning-address <EARNING-ADDRESS>    Address of earning wallet. Supply this instead of --earning-path if the
+                                               earning wallet is not derived from the mnemonic phrase
+        --earning-path <EARNING-PATH>          Derivation path from which to generate the earning wallet from which your
+                                               bills will be paid. Can be the same as consuming-path. Remember to put it
+                                               in double quotes; otherwise the single quotes will cause problems
+        --language <LANGUAGE>                  The language in which the wallets' mnemonic phrase should be generated
+                                               [default: English]  [possible values: English, Chinese, Traditional
+                                               Chinese, French, Italian, Japanese, Korean, Spanish]
+        --mnemonic-phrase <MNEMONIC-PHRASE>    The mnemonic phrase upon which the consuming wallet (and possibly the
+                                               earning wallet) is based. Surround with double quotes.
+        --passphrase <PASSPHRASE>              An additional word--any word--to place at the end of the mnemonic phrase
+                                               to recover the wallet pair
+```
+
+In case it matters, command validation happens in `masq`, and only if the command is valid does it get sent to the Node, where parameter validation happens. What this means, for example, is that if you specify an invalid `--consuming-path` and no `--mnemonic-phrase`, the error you receive will be from `masq`, complaining of a missing required parameter: `masq` has no idea what a valid derivation path is. In order to get that error, the command will need to be correct enough to make `masq` accept it and send it on to the Node.

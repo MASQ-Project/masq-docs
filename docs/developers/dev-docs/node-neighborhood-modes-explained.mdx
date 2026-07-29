@@ -1,0 +1,23 @@
+# Node Neighborhood Modes Explained
+
+These modes of operation control the way the Node interacts with other Nodes in the MASQ Network, each with different use cases and features.
+
+### **There are Four modes** <a href="#there-are-four-modes" id="there-are-four-modes"></a>
+
+## Standard Mode  <a href="#standard-mode" id="standard-mode"></a>
+
+This is the default mode of operation. In this mode, the Node will open inbound network ports, debut on the MASQ Network and (most likely) receive two neighbors. Later, other Nodes may contact it through the inbound network ports (provided they have been properly forwarded through the router), and it will probably end up routing data for four Standard-mode neighbors, although the count may reach as high as five. This is the mode that provides the most functionality to the Network and holds the most promise of revenue for you.
+
+## Originate-Only Mode  <a href="#originate-only-mode" id="originate-only-mode"></a>
+
+In this mode, the Node will not open any inbound network ports. It will debut on the MASQ Network and receive its two neighbors, but no Nodes other than those two will ever be able to contact it, because it won't accept incoming connections. It will only ever be able to route data from one of its neighbors to the other, and if one of those neighbors goes down, it won't be able to provide any routing services at all. However, Originate-Only Mode might be necessary in environments where the government or the ISP prevents you from listening on inbound ports, or in places like a coffee shop or a hotel where you don't have access to forward inbound ports through the router.
+
+## Consume-Only Mode <a href="#consume-only-mode" id="consume-only-mode"></a>
+
+This has all the constraints of Originate-Only Mode, with the additional constraint that in Consume-Only Mode a Node will never provide any routing services at all, even with two perfectly healthy neighbors. Consume-Only Mode is not terribly useful as the Node stands now, but in the future, if a Node is running on a battery-powered mobile device, Consume-Only Mode means that the Node has to be actually running only when it's actively being used by its owner; at other times, it can go passive and not have to keep using battery power to route data or else be performance-banned by the Network.
+
+## Zero-Hop Mode <a href="#zero-hop-mode" id="zero-hop-mode"></a>
+
+We have not found any real-world use for this mode; we use it only for testing. In Zero-Hop Mode, a Node is its own entire MASQ Network. Every route has only Originating and Exit Nodes--no Relay Nodes--and the Zero-Hop Node is both of them. Data comes in from the browser to the Originating part of the Node; the resulting CORES packages are internally routed around to the Exit part of the Node; the data is decrypted and sent directly to the server, and the response from the server goes back the same way.
+
+Only use Zero-Hop Mode if you're running a test that doesn't need a whole Network, or if your computer is running annoyingly fast and you need to slow it down a bit.

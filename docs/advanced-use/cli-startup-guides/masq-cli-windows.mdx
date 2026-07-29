@@ -1,0 +1,216 @@
+---
+description: >-
+---
+
+# MASQ CLI - Windows
+
+Command Line Interface testing is where we test the basic functionality and changes made by the developers. It can be a tricky and fiddly thing to master, it takes no prisoners for errors or mistyping and can be frustrating. Like anything, it takes patience and practice. Do not be put off by it, just keep at it and reach out to testers in Discord if you have issues.\
+\
+I have laid this document out as I do things. You may decide I do things in a stupid way or maybe I missed something. I’ve been doing this a while but I will endeavour to start it from the beginning to get you to a point where you can at least start the node (not fully functional) for testing purposes.
+
+:::info
+
+If you have previously tested MASQ Node you need to DELETE ALL OLD NODE DATABASE FILES BEFORE you start again (node-data.db)
+
+:::
+
+## Steps Outlined in this Guide
+
+* [ ] Downloading latest stable Binaries from MASQ Node GitHub
+* [ ] Extracting them to your local disk
+* [ ] Start the Command Line Interface (CLI)
+* [ ] Initialize the MASQDaemon
+* [ ] Setting Configuration for MASQ Node
+* [ ] Starting `masq` Node Process
+
+## Setting Up MASQ Binaries
+
+Create a new folder called Masq on your C drive:\
+\
+![](/img/assets/hoy358oqj1fecvunwa9nj8oomw9sa4uoufwvtlou29tdkqvkwvpsilqo165slfcvgui4zntubgnghkkli4oqtsppxy-i748c9ycqp4zt71hs4nfnavrvjvrpsdbyhm7_n_yvyxqs0)\
+Navigate to your `C:` drive
+
+Right click the mouse, Scroll down to New then Folder and click it.\
+Rename that folder `Masq`&#x20;
+
+![](/img/assets/_dq6nnchantnjzbyvey1jyjznowx8ouxjodeazo1zxt-4eax5uuyl-ssdbpcyf7mhetrsg-4lfml4l0eq41dfgmvb_28-j3sklpm3a7yjt9jnaje4dhijasu25udajc6gwagdvbzs0)
+
+Download the latest Binaries for the **MASQ Node** software here:<br />
+
+[Open link](https://github.com/MASQ-Project/Node/releases/latest)
+
+Once you have clicked on a Binary you will see the Binaries for the 3 operating systems. We obviously want the Windows version, as we are using Windows in this guide.
+
+![](/img/assets/image-31.png)
+
+Click on the Windows version and the download will begin.
+
+Go to downloads and cut/paste the downloaded zip file into your recently created `Masq` folder.
+
+You should now have this:
+
+![](/img/assets/c9dc4jd1oyoazgye5i-ariqidbasylcw878tdx6kesro2qfoufrzumdk1wq_kprj2xo81eu01ftamgvkgpw9wczp6ft36nfcic5voh7gy9ihcityjzjhtrqrizyda5hyf9h4dwmqs0)
+
+Right click the file, select **Extract here** and you will get the below:
+
+![](/img/assets/t6-vzvxshxfsrcviqtoazeiywbcak6ejr5p9gpmgqa9yowyqjrslyhfjjldzf1bwdbz9hwntir4de2vfwbhkkjynvbabbqvbw7kjppidw3mq9pbupjpmgrjjlwpwjsxbxhohv2svs0)
+
+These are the files you want for testing. Copy and paste into your `Masq` folder. You should see something like this:
+
+![](/img/assets/rs4kq4aj2tdzrvmz9noikj1vu5mgjdbept5aeohbpebrtt_twjlwl496jpzlu5aqz1fzdqmunc78gvs4_qabkjze7hm_esbp9fmsttsywv0b4oujug1v0owojg8qubkhl1gk7j2os0)
+
+Now we have the Binaries (MASQNode and masq) and we are ready to start using CLI.
+
+## Start the Command Line Interface (CLI)
+
+To run MASQ Node from CLI you will need to use a command line console or terminal window with **elevated privileges**
+
+Using the Windows search bar type:   `command`
+
+![](/img/assets/rsdc88frsiq6-2uudntismet8pnxkfjqkbvrtvwm-o62w4lt_-u8ds72yygsmpuu8qkh4ptiik28spsogfetwy7z-_h7couy_0tqsguxant4hjz6a-__meuijet85hkjxqw4xnm9s0)
+
+On the right hand side, click 'Run as Administrator' and click **Yes** on the confirmation message that pops up. You should see this:
+
+![](/img/assets/yobbopggqoqjkcdi19n_hu3riqidecsmes5djjucwhryitstuqlfmzw0vaply4mw6gvmgojnqrvb_u0dxocppt0w4g7u-_bqficoxqnqbd408wmepmkv1j2ppw-wq9tpa3e1y5kfs0)
+
+We now have to navigate to the Masq folder you created earlier using this CLI. These commands assume you have created the Masq folder in the same location as I did above. Creating that folder elsewhere will mean the below command may not work and you will have to navigate to the Masq folder in the location you created it.
+
+* Type: `cd/`
+* Press Enter
+* Type: `cd Masq`
+* Press **Enter**
+
+CLI should now show you are in the right place:
+
+![](/img/assets/apr4nzkz9thibgmbp9d6jkyg42wizjne1damsopw-cunp_czhyt9h1bpa49v7dfogkj5pznbi-fn6wksdorcja9ojtnpv9ilwj9r-glybn-xr0clo752ui977jb6qpaqjssiaa5_s0)
+
+## Initialize the Daemon (MASQNode binary)
+
+:::info
+
+&#x20;The daemon service is currently the MASQNode binary file under the bin directory
+
+:::
+
+In CLI type : `MASQNode --initialization`
+
+Press **Enter**
+
+:::warning
+
+You may get a pop up window where your Antivirus scans the file, wait for that to finish
+
+:::
+
+![](/img/assets/rdjjifh4wmlmhbds00dbpecbdrcgzhz5vgd8tj-xjxavhtdqm9ppojmzuay1xk9dvod9j78vapmphywx41vukkore5p0pjceuibfz-4rssmmrtovvaxdhvqa_uf_gbhakpa79rbs0)
+
+We now need to open another CLI window as we did before, but this time do not type anything yet.
+
+You should now have 2 CLI open that look like this:
+
+![](/img/assets/ggprep8s1zxeyruonwtmolbk62jcrsrytj8trabcgm27pinzo4fzcz6glnacer9gmux-tystbn6jms8fr2tvs0ajh7dj9fjhab7y7aohqxjz7lmd7lgndtwrd9bsf07nwdgdr_f5s0)
+
+:::info
+
+At this point, there is no need to touch the one that is running the Daemon
+
+:::
+
+Ignore the first window (left) for now. Let's concentrate on the right hand side window.\
+This CLI window is currently doing nothing but we have navigated to the Masq folder ready to look at how we set-up and start a Node.
+
+In this CLI window type: `masq`
+
+Press **Enter**
+
+We are now in interactive mode which makes your life easier (you can stay in standard mode but that requires a few more commands and you will get to know this as you test).
+
+![](/img/assets/vbzmm_p6uvtkj92x7wr_hrpv6cl9giarl-jxce8urbyjcsx8qnth-nzpikbvtvwiq5ixjf_kqfthhj9shtwgurqfgbvrmpzbqsdb_8rdmxpwljkytbtehazlxhn1q8maiglx5n00s0)
+
+## Setting Configuration for MASQ Node
+
+Type: `setup`
+
+Press **Enter**\
+You should see the below:
+
+![](/img/assets/7prnoz85unjamr7ep0ga3ds2lrxhazlpiyw90zvpa1zwrzdizax2nrw0oiwq21wqvguge0znsi57kuztekueutyk9am2-_edacflmbicnuglkfoeiqxhnkaossnosx1lzuox5w9us0)
+
+A breakdown of what these are and how you configure them can be found below:
+
+[configuring-masq-node.md](../masq-node-from-cli/configuring-masq-node)
+
+The above link shows that there are several things you can configure along with the status of them.
+
+This guide will not be going through each one but will give you the easiest way to get CLI up and running and start a Node for testing with the minimum information required.\
+\
+The screenshot of `setup` shows a message:
+```aspnet
+ERRORS:
+neighborhood-mode      Node cannot run as --neighborhood-mode standard without --ip specified
+```
+
+This is telling us to set a value for `ip`. In the most basic way, we can supply a value which satisfies the requirements but does have to be your actual public ip address. Remember we are not setting up a fully functional Node, we are simply doing the basics to allow testing.
+
+In order to specify an `--ip` type: `setup --ip 1.2.3.4`
+
+Press **Enter**
+
+You should see this:
+
+![](/img/assets/zgkrw8pm7d4prbdo87utbolynodw5v4svft-lcwzij3_d49slw8tmegucdzckyta0skcenemyfgrrjfsmp74d-3_p4t1fep_9kwr6tragbflrhbwblm7s0wgu_dcyvyistbzmsuys0)
+
+This shows us the setup list again but now the **STATUS** alongside ip is `Set` to 1.2.3.4 and the `ERRORS` message has disappeared.
+
+## Starting `masq` Node Process
+
+We can now start the Node by typing… Wait for it. `start`
+
+:::warning
+
+In Windows, you may see an admin prompt asking you to allow 'masqnode' process through Windows firewall. Allow that so the Node software can connect to the network
+
+:::
+
+Press **Enter**\
+If you have followed all the above correctly you should see something like this:
+
+![](/img/assets/y2oclfwbrokwxnmczsdhgz6mdlpojrtimpwewmiggi-b4vsmrxkg6roqvwhzd3jrecyl1srcq9bozwhuxq_4hun_0fwqitqncvuymmywqrultq-egaopkmasdfjurflbvkknism-s0)
+
+You should also see some action on the Daemon CLI screen which we opened, started and then left alone.&#x20;
+
+**Congratulations you have taken the first step to testing on CLI!**\
+\
+There is much more to learn about parameters which can be found on the link provided earlier. If you would like to look around and make yourself familiar with things you can use the help commands which are available on 2 places as some things can only be done at certain stages:\
+\
+If you have not yet started the Node using `start`, you can use: `setup --help`&#x20;
+
+If you have started your Node successfully you can use : `help`
+
+## Subverting DNS
+
+To consume over MASQ Network you need to do **EITHER**
+
+#### **RECOMMENDED - Proxy your browser/applications** to 127.0.0.1:80 and 127.0.0.1:443 (this is for HTTP and HTTPS traffic
+
+#### OR
+
+#### Subvert your machine DNS to 127.0.0.1
+
+:::info
+
+To subvert your DNS, find your network adaptor settings (usually its in the system settings of your machine) and change your DNS from 'Automatic' to manually use 127.0.0.1
+
+If you can disable IPv6 as an option is recommended to do this as well.
+
+:::
+
+:::danger
+
+### Shutting down Node and Reverting DNS
+
+The cleanly shutdown node, in your Node terminal (not the Daemon terminal), type `shutdown` in interactive mode, or `masq shutdown` from a terminal if you aren't in interactive mode.
+
+Ensure that you revert your environment DNS back to Automatic or your default settings before you subverted them, or you will not regain connection to the internet.
+
+:::

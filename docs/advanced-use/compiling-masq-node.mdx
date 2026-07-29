@@ -1,0 +1,45 @@
+# Compiling MASQ Node
+
+To compile MASQ Node from source on GitHub here is a basic guide for Ubuntu, using `rustup` to install rustc
+
+## System Update
+```
+$ sudo apt update
+$ sudo apt upgrade
+$ sudo reboot now
+```
+
+## Install Compilation Dependency
+
+### Development tools
+```
+$ sudo apt install curl git build-essential
+```
+
+### Rust
+```bash
+$ curl --proto =https --tlsv1.2 -sSf https://sh.rustup.rs | sh
+When see "1) Proceed with installation (default)", press "ENTER" key to choose the default option.
+$ source $HOME/.cargo/env
+```
+
+## Compile MASQNode CLI
+
+Download MASQNode source code
+```
+$ git clone https://github.com/MASQ-Project/Node.git node_src
+```
+
+Compile
+```
+$ node_src/node/ci/build.sh $ node_src/dns_utility/ci/build.sh
+```
+
+## Install MASQNode
+
+Copy compiled binaries to `/.local/bin`
+```
+$ mkdir -p .local/bin
+$ cp node_src/node/target/release/masq .local/bin/
+$ cp node_src/node/target/release/MASQNode .local/bin/
+```

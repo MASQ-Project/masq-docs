@@ -1,0 +1,106 @@
+# Troubleshooting
+
+:::info
+
+The MASQ Browser targets **Base** for the public mainnet (`$MASQ` plus ETH for gas). Community members sometimes operate separate peer networks on **Polygon** — you may bridge `$MASQ` into Base via the official bridging options in the token docs or coordinate with peers to bootstrap Polygon connectivity separately.
+
+:::
+
+<details>
+
+<summary>I have started the MASQ app for the first time, but I can’t seem to connect to any Node IDs</summary>
+
+If you are still on the final connection screen of Onboarding, try to connect again using two Node IDs from the #cloud-nodes private testing channel.
+
+If you are on the dashboard, enter two Node IDs manually, separated by a comma and no space:
+
+E.g. `masq://base-mainnet:5nyiwZJldF_ZWHzQjpLLZEwl-nRsFUCPFurZjHiSYyo@112.41.55.101:4455,masq://base-mainnet:5nyiwZJldF_ZWHzQjpLLZEwl-nRsFUCPFurZjHiSYyo@112.41.55.101:4455`
+
+</details>
+
+<details>
+
+<summary>When I start the MASQ app, it says "Daemon not Running"</summary>
+
+If there is no MASQNode process running in your background services, its possible the MASQ daemon is blocked from communications (it uses websockets), it crashed or the process was killed somehow.
+
+You can attempt to run it again by opening your MASQ installation folder, and finding the `masqnode` executable and running it with admin privilege, or opening a terminal window (with admin rights) from that folder and running it directly.
+
+Alternatively, if you have tried to uninstall to reinstall the Beta software, you may have not uninstalled it completely or removed residual logs and cache files.
+
+Please this head to page here and follow instructions here to remove them from your system, before reinstalling MASQ. Head to [System Cleanup](../install-requirements/system-cleanup) to ensure you have prepared your system for clean Beta install.
+
+Lastly, it is possible the background `masqnode` daemon process was blocked by your machine firewall or task manager. The name of the running process is MASQNode or MASQDaemon
+
+Please inspect in your task or process manager if this is running.
+
+</details>
+
+<details>
+
+<summary>I'm running MASQ app, connected to Nodes and the dashboard says: "I am protected..." but I cannot browse any websites</summary>
+
+There is a high probability that your node is delinquent from nearby network Node IDs for non-payment or possibly you are out of gas (ETH on Base) which has caused your service payments to not be sent out.
+
+Firstly check your wallet page for $MASQ and ETH balances on Base. If you have sufficient tokens you can try to reconnect by turning MASQ off and then back on using the Power Button.
+
+</details>
+
+#### FAQ with Serving Mode
+
+<details>
+
+<summary>Why can't I turn on 'Serving' to earn $MASQ?</summary>
+
+Currently the main requirement for serving the MASQ Network is a port-forward compatible router:
+
+#### Port Forward
+
+To be a MASQ serving node, you need to have port-mapping set on your router to allow traffic in from other peers you are serving on the MASQ Network. The internal MASQ `automap` component in the software will try to do this for you, but if it fails, the MASQ Browser allows  you to browse on the MASQ Network in 'consume-only' mode.
+
+As of MASQ Browser v0.9 there is a manual port forward option that allows advanced users to open their port themselves on their router and to test it is open. This allows more users to enable Serve mode after adjusting their custom set up.\
+This does require some technical knowledge, so please perform this carefully and reference guides for your router make and model. A great resource is:
+
+[https://portforward.com](https://portforward.com)
+
+
+
+#### ~~(Speed test has been removed in v0.9) Download Speed~~
+
+~~To preserve a strong core test network of reliable bandwidth serving Nodes, the minimum requirement for the Download Speed test is 80Mbs.~~
+
+~~**Currently Upload speed is not being tested or enforced with minimum limit.**~~
+
+~~You can test your Speed again using the Serving toggle on the dashboard to see if you reach the minimum upload speed.~~
+
+</details>
+
+<details>
+
+<summary>How can I check if my router will work without needing manual config?</summary>
+
+**Double NAT**
+
+One possible reason why serving won't work is that your router is connected behind another router from their ISP (or residential provider) that connects you to the Internet. This causes what is known as Double NAT [https://kb.netgear.com/30186/What-is-double-NAT-and-why-is-it-bad](https://kb.netgear.com/30186/What-is-double-NAT-and-why-is-it-bad)
+
+_(this is more common in shared residential areas such as apartments, multi-home dwellings or in communities where the internet infrastructure is shared between units)_
+
+One solution in this situation, is to run the ISP's router in bridge mode, so that it basically just acts as a modem. This removes the NAT from the ISP's router, since it is now only acting as a modem.
+
+To detect Double NAT problems, you can run a command from terminal `tracert 8.8.8.8` (Windows) or `traceroute 8.8.8.8` (MacOS/Linux) and look if the first 2 entries of the route are private addresses. (private addresses are usually in the 192.168.0.0 to 192.168.255.255 range, the 172.16.0.0 to 172.31.255.255 range, or the 10.0.0.0 to 10.255.255.255 range.)&#x20;
+
+(_Network Address Translation (NAT) is a method of mapping one IP address space to another by modifying network address information in the IP header of packets as they pass through a traffic routing device._)
+
+</details>
+
+### Common Issues:
+
+[macos-user-startup-issue.md](macos-user-startup-issue)
+
+[port-80-common-to-windows.md](port-80-common-to-windows)
+
+[ports-issue.md](ports-issue)
+
+### Other Helpful FAQs
+
+[beta-faqs.md](../beta-faqs)

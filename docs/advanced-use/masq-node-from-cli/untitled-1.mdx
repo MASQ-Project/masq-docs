@@ -1,0 +1,169 @@
+# Configuration Methods
+
+## Methods of Configuring
+
+There are three ways to get configuration information into a MASQ Node on startup.
+
+In decreasing level of priority, these are:
+
+1. the command line
+2. the shell environment
+3. the configuration file (see Config TOML)
+
+Any piece of configuration information can be provided through any of these channels, with one exception: the path to the configuration file cannot be taken from the configuration file. **(It can be provided there, but it will never be taken from there.)**
+
+Configuration information provided in the environment will supersede conflicting information provided in the configuration file, and information provided on the command line will supersede conflicting information from both of the other sources.
+
+### Command line  <a href="#command-line" id="command-line"></a>
+
+This is the easiest. In this file, all our documentation of the configuration options shows you how to provide them on the command line. Keep in mind, though, that command lines tend to be preserved by the operating system for display to users who want to see process lists. Therefore, the command line may not be the best place to specify sensitive or secret configuration information. (Nothing prevents you from doing this, though, so be careful.)
+
+### Shell Environment  <a href="#shell-environment" id="shell-environment"></a>
+
+If you see that the command line accepts a parameter such as `--clandestine-port 1234`, then you can supply that same parameter in the environment by setting the MASQ\_CLANDESTINE\_PORT environment variable to 1234. Note that you need to remove the initial `--` prefix, convert the name to all uppercase, and add a MASQ prefix to namespace the parameter against other applications that might look for a similar variable.
+
+#### Configuration File  <a href="#configuration-file" id="configuration-file"></a>
+
+The configuration file, by default, resides in the data directory (see the `--data-directory` parameter for further information) and is named config.toml. If you leave the configuration file unspecified, this is where MASQ Node will look for it. If it's found, it will be used; if it's not, MASQ Node will act as though it had been found but empty. But if you want to use a different file, specify it either as `--config-file` on the command line or as MASQ\_CONFIG\_FILE in the environment. If you specify a relative filename, MASQ Node will look for the configuration file in the data directory; if you specify an absolute filename, MASQ Node will not use the data directory to find the configuration file. The configuration file should be in TOML format. TOML is a competitor to other formats like JSON and YAML, but the MASQ Node uses only scalar settings, not arrays or tables.
+
+If you see that the command line accepts a parameter such as `--clandestine-port 1234`, then you can supply that same parameter in the configuration file by adding the following line to it: `clandestine-port = "1234"` Note that you need to remove the initial `--`prefix. All the configuration parameters will work if you supply their values as double-quoted strings, but if they're numeric values, you can supply them numerically as well--for example, `clandestine-port = 1234` Keep in mind that a configuration file is persistent information: anyone who has or can gain read access to the file can read whatever's in it, whether MASQ Node is running or not. Therefore, the configuration file may not be the best place to specify sensitive or secret configuration information. _(Nothing prevents you from doing this, though, so be careful.)_
+
+
+
+## Parameters
+
+There are currently sixteen parameters accessible to masq. (There are more, but they're either for testing or for use strictly between the Daemon and the Node. Call them "undocumented.")
+
+They fall into two coherent groups and one pile of miscellany:
+
+### BASE CONFIGURATION:
+
+* \--chain&#x20;
+* \--clandestine-port&#x20;
+* \--config-file&#x20;
+* \--data-directory&#x20;
+* \--dns-servers&#x20;
+* \--log-level&#x20;
+* \--mapping protocol
+* \--neighborhood-mode&#x20;
+* \--real-user
+
+**Descriptions**
+
+#### `--chain`&#x20;
+
+This tells Node what chain to use, and upon startup, will either create a directory in the data-directory path that contains the chain specific database, or will look for that directory and access the existing `node-data.db` encrypted database file.&#x20;
+
+Possible values include `base-mainnet`, `polygon-mainnet`, and `eth-mainnet`.
+
+It defaults to mainnet.
+
+#### `--clandestine-port`&#x20;
+
+This is the port the Node uses to communicate "clandestinely" to other Nodes. Technically, it should be required only when the Node is not in --neighborhood-mode zero-hop, but because of the way the code is written, it's always required. It defaults to a randomly-chosen port number, which is stored openly (that is, not behind --db-password) in the database and reused when possible.
+
+#### `--config-file`&#x20;
+
+This is the path to or name of a TOML file containing static configuration parameters for Node. It can contain any parameters other than --data-directory or --config-file (it can contain those too, but they'll be ignored), including the "undocumented" ones. If it's a relative path, it's interpreted to be relative to the value of --data-directory. If it's an absolute path, it's interpreted absolutely. It is never required, but defaults to config.toml. (Which is to say, if you put a file named config.toml in the --data-directory, it will be found and used even if you never specify --config-file in the setup).
+
+#### `--data-directory`&#x20;
+
+This is where the Node can find its configuration (mostly the database, at this point, plus the config file, if it's just given as a filename) and where it will write its logs. It is always required, and defaults to a platform-specific local-data path followed by MASQ/ (or MASQ\ on Windows).
+
+#### `--dns-servers`&#x20;
+
+When the Node provides exit services (either for itself in --neighborhood-mode zero-hop or for another Node in some other mode), it uses these DNS servers to find the IP address to which to route traffic. It is always required. One day, it will default to whatever DNS settings were in the system network stack when the Node (or perhaps Daemon) started; today, it just defaults to 1.1.1.1.
+
+#### `--log-level`&#x20;
+
+This is used to control the verbosity of the logs written by the Node (not the Daemon). Minimum verbosity is error; other values are warn, info, debug, and trace, which is maximum verbosity. trace (and really even debug) is a bad idea unless you're specifically trying to track down some sort of pathology, because they both generate a _lot_ of data, as well as causing the Node to run more slowly. You can also supply the off setting, whereupon the Node will not log anything at all. This might be a good idea for Nodes that are expected to run for a long time on very small hardware. This parameter is always required and defaults to warn.
+
+#### `--mapping protocol`
+
+The Node can speak three protocols to your router to make it allow outside Nodes to connect inward through it to your machine. These three protocols are pcp, pmp, and igdp. The Node can try them one by one to determine which your router supports, but if you happen to know already, you can supply the name of the protocol here. If you've taken care of port mapping in some other way, and you don't need Node to negotiate with your router, say 'none' here and be sure to specify your public IP address with the --ip parameter. If the Node communicates successfully with your router, it will remember the protocol it used, and on its next run it will try that protocol first, unless you specify a different protocol on the command line. \[possible values: pcp, pmp, igdp]
+
+The automap component will not run upon Node startup if there is a value stored for `--ip` or the `--neighborhood-mode` is set to a value other than standard.
+
+#### `--neighborhood-mode` (modes are explained in MASQ Docs [here](https://app.gitbook.com/@masq/s/docs/node-dynamics/node-neighborhood-modes-explained))
+
+As it happens, this is the parameter that has the most control over the requiredness of other parameters. There are four possibilities here:&#x20;
+
+* standard
+* originate-only
+* consume-only
+* zero-hop
+
+#### Standard causes the Node to behave as most people expect from all the advertisements, hype, documentation, and word-of-mouth.
+
+#### Originate-only means the Node will not (cannot) accept connections from other Nodes; it will only ever originate connections to other Nodes. It can still provide services, but the way the Gossip protocol is implemented, it will almost never end up connected to more than two other Nodes, so it will only ever pass data from one to the other, or from the other to the one.
+
+#### Consume-only is like originate-only, except that the Node will also refuse to provide services to other Nodes. This might be useful for a small, low-powered device that cannot afford the battery power to stay constantly communicative.
+
+#### Zero-hop means the Node will not connect to any other Nodes or accept connections from any other Nodes, and will act as its own self-contained MASQ network. It is of very little use for anything but testing.
+
+#### `--real-user`&#x20;
+
+We aren't not convinced this parameter is still useful. It came about because of the old Electron GUI in JavaScript, because making JavaScript seize enough privilege to start the Node required some weird machinations during which important information about who the user was before he gained privilege was lost; so that information was squirreled away before the privilege change and then added back in with --real-user. Now the Daemon starts the Node, and it doesn't have to use any spooky JavaScripty hacks to do it, and therefore the UI never has to be privileged or worry about privilege changes; so we think --real-user has probably outlived its usefulness and should either disappear or go "undocumented." In the meantime, though, it consists of three fields: ::, all referring specifically to the unprivileged user on whose behalf Node is running.
+
+It is never required, defaults to different things for Linux and macOS, and is not used for Windows at all.
+
+### BLOCKCHAIN CONFIGURATION:
+
+* \--blockchain-service-url&#x20;
+* \--db-password&#x20;
+* \--gas-price
+
+**Description**
+
+The next four parameters have something in common: if you're going to use the blockchain - that is, if you're not in --neighborhood-mode zero-hop--they're required.
+
+If you're not using the blockchain, they're not needed. However, as the code stands now (2020/04/12), you can leave them out even if you're not zero-hop; you'll just get an ERROR log every time the Node tries to pay your bills, and eventually everyone will delinquency-ban you. This may change at some point in the future, but exactly how it turns out will depend on exactly what we decide to do about establishing wallet information with masq (now that it's inconvenient to use the --generate-wallet and --recover-wallet modes in the Node).
+
+#### `--blockchain-service-url`&#x20;
+
+This is the URL of the blockchain service you're using. At the moment I think we only handle infura.io. The URL should include your project ID, which you get by creating an account at [https://infura.io](https://infura.io). There is no default.
+
+More information can be found here
+
+#### `--db-password`&#x20;
+
+Currently all the things in the database that are encrypted behind the `--db-password` have to do with blockchain operations; therefore, db-passwor`d` is only ever required when --neighborhood-mode is other than zero-hop. The important thing is to specify the same value every time.  This is operated by `masq` commands: `set-password`, `check-password` and `change-password`
+
+In the real world, you want to be careful with this value, because the ability to pull funds out of your consuming wallet hides behind it. There is no default.
+
+#### `--gas-price`&#x20;
+
+I wasn't involved with the addition of this parameter, but I believe it's the gas price the Node offers with each bill payment. Valid values are from 1 to 99, with the default being 1. One what? I don't know. I looked at the code, I found RawTransaction, and I still don't know. Sorry.
+
+### MISCELLANEOUS:&#x20;
+
+* \--consuming-private-key
+* \--earning-wallet&#x20;
+* \--ip&#x20;
+* \--neighbors
+
+**Description:**
+
+These parameters are miscellaneous because they have unique requiredness attributes.
+
+#### `--consuming-private-key`
+
+This is mostly for testing but could possibly be useful in the real world. It's a way of shortcutting all the BIP stuff. If you know your consuming wallet's private key (64 hexadecimal digits), you can specify it directly rather than going through the whole language/mnemonic-phrase/mnemonic passphrase/derivation path rigmarole. This parameter should be required whenever you're A) using the blockchain, and B) missing some part of the consuming-wallet configuration in the database; but in reality it's never required. The --consuming-private-key is never stored in the database, even under the --db-password, so if you use it you have to specify it every time you run (or in the config file or in the environment).
+
+#### `--earning-wallet`&#x20;
+
+This is the 0x-plus-forty-hex-digits address of your earning wallet. It is not sensitive information--the only thing people can do with it is pay you--and it defaults to the MASQ Network donation wallet.
+
+#### `--ip`&#x20;
+
+This is the IP address at which external Nodes can contact your Node. It is probably not the IP address of your computer. It's only needed if other Nodes are going to be contacting your Node, which means it's only required in --neighborhood-mode standard. One day, there will be several attempts at defaulting it by contacting your network router using various protocols, but today there is no default.
+
+#### `--neighbors`
+
+This is a list of Node descriptors for Nodes that your Node should initially contact upon startup to join the MASQ Network. If you're in zero-hop, you won't be contacting any other Nodes period, so you don't need --neighbors. If you're in originate-only or consume-only, there's no way you can accomplish anything without contacting another Node, so --neighbors is required. If you're in standard, you could use --neighbors to hook into an existing network, or leave it out to start a network of your own, so it's not required.
+
+:::info
+
+This is to be constantly updated from Github
+
+:::

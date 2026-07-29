@@ -1,0 +1,109 @@
+# MASQ Node CLI FAQ
+
+:::warning
+
+**CAUTION**
+
+This section is meant for advanced users and will not be necessary for most MASQ users. Before going on to this section, we highly recommend having a good understanding of using command line, configuring network settings and navigating custom configurations.
+
+The code is open sourced on [GitHub](https://github.com/MASQ-Project/Node).
+
+:::
+
+Also there are dedicated channels in our [Discord](https://discord.gg/cdUsjBQrgq), where users can discuss running in CLI.
+
+## What do I need to run MASQ Node from CLI? <a href="#what-do-i-need-to-run-masq-node" id="what-do-i-need-to-run-masq-node"></a>
+
+You will need the following, and some knowledge of editing your router settings if you intend to contribute serving bandwidth to the network:
+
+* **ETH on Base** for gas (native ETH)
+* **$MASQ on Base** for mesh monetization ([Contract Addresses](../../masq-token/masq-erc20))
+* **If Serving (**`standard` **mode) -** Access to your router to allow port forwarding for your `clandestine-port`  (see below)
+* Blockchain Service Endpoint - free, freemium or premium ([see this page for info](../blockchain-service-endpoint))
+* Node ID (also called a _node neighbor descriptor_)
+
+## Why are there several manual settings? <a href="#why-are-there-several-manual-settings" id="why-are-there-several-manual-settings"></a>
+
+You may not realize that even VPNs require entry configuration!
+
+The reason for the Node descriptor is that the network is peer to peer – MASQ Network is not centralized.
+
+Even blockchains work in similar ways.
+
+As the Node software develops, the development team and the open source community will make things easier to operate.
+
+## Where can I get a Descriptor? <a href="#where-can-i-get-a-descriptor" id="where-can-i-get-a-descriptor"></a>
+
+You can get descriptors from other community members. MASQ team will likely launch some public nodes during test phases.
+
+When testing is made public, the MASQ team will also publish an API, which will be able to provide validated Node , and submit your own descriptors for others to connect to.
+
+**NOTE: do this at your own risk, as it does expose your External Public IP address online!**
+
+They are in a URI format:
+
+**masq:// Chain** : **Public-Descriptor @ \[IP format xxx.xxx.xxx.xxx ] : Port #**
+
+Eg: `masq://base-mainnet:5nyiwZJldF_ZWHzQjpLLZEwl-nRsFUCPFurZjHiSYyo@112.41.55.101:4455`
+
+Make sure there are no spaces in front or at the end.
+
+Descriptors are not backwards compatible with previous test versions.
+
+## How do I forward ports? <a href="#how-do-i-forward-ports" id="how-do-i-forward-ports"></a>
+
+You will need to forward the one port assigned by Node when you first connect.
+
+Its located in your descriptor that appears on the GUI Dashboard - it is the last 4-5 digits:
+
+e.g. In this Node Descriptor:
+
+`masq://base-mainnet:5nyiwZJldF_ZWHzQjpLLZEwl-nRsFUCPFurZjHiSYyo@112.41.55.101:4455` ==> **The port is 4455**
+
+There are many resources out there, but this website has a very comprehensive list of most routers and the instructions to forward ports:
+
+​[https://portforward.com/router.htm](https://portforward.com/router.htm)​
+
+## So Seed Words = Mnemonic Phrase?? <a href="#so-seed-words-mnemonic-phrase" id="so-seed-words-mnemonic-phrase"></a>
+
+Yes!
+
+Your Mnemonic phrase is the 12 or 24 seed words used to generate wallets. By specifying a derivation path, your seed words will be run through BIP39 algorithm to produce keypairs and wallet addresses.
+
+This is why you should NEVER share your seed words with anyone, keep several hard copies safely hidden, and keep it offline. If you lose your seed words, you will not be able to recover your wallets if you lose access.
+
+**Please do not ask MASQ team to help you recover your seed words!**
+
+## I'm Confused about the Mnemonic **Pass**phrase! <a href="#im-confused-about-the-mnemonic-passphrase" id="im-confused-about-the-mnemonic-passphrase"></a>
+
+Simply put, the Mnemonic Passphrase is an extra optional seed word that can be added when generating wallets.
+
+It is not required, but if it is included with the other 12 or 24 seed words, will create a whole different set of wallets.
+
+You can leave this field blank when generating or recovering wallets, but once you generate a set of wallets including a mnemonic passphrase, you will always have to specify it in future.
+
+Please note that some Wallet Managers and Software like Metamask do not support mnemonic passphrases – Metamask only supports 12 seedword phrases in many of their software plugins and integrations
+
+## What's the wallet/db-password? <a href="#whats-the-wallet-db-password" id="whats-the-wallet-db-password"></a>
+
+Security is paramount with MASQ Node, and is an integral tenet of the project. Thus, the if the Node software stores any private information inside it (like the consuming-wallet-private key info required) it is only stored locally on the machine under encryption.
+
+The db-password is a personal password a user sets to encrypt your database stored locally on your machine. It is also loosely referred to as the 'Wallet Password'
+
+The database (named node-data.db) is where your consuming wallet private key is encrypted, so it cannot be viewed or accessed by anyone except yourself.
+
+In the code, the parameter for this is `--db-password`. It has no character requirements, but once you set it, it can only be changed with the old password. **Make you sure record your password in a safe place**
+
+Each time you run Node, you will be prompted for your `db-password`, which will then decrypt your wallet information so Node can access the MASQ Network.
+
+## My Port 80 or Port 53 is Occupied - "ERROR Could not listen on Port" <a href="#my-port-80-or-port-53-is-occupied-error-could-not-listen-on-port" id="my-port-80-or-port-53-is-occupied-error-could-not-listen-on-port"></a>
+
+This error usually occurs when another process is occupying the network port on your machine. (such as Apache taking up port 80, another instance of MASQNode running)
+
+Firstly, ensure the user you are using has permissions to bind or occupy network ports (from command line you can run from an elevated Command Terminal, or use sudo in a UNIX system)
+
+This page also provides some information from the developers:
+
+​[https://github.com/MASQ-Project/Node/blob/master/node/docs/PORT\_53.md](https://github.com/MASQ-Project/Node/blob/master/node/docs/PORT_53.md)​
+
+​

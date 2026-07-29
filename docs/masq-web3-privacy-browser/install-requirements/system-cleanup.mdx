@@ -1,0 +1,179 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# System Cleanup
+
+:::warning
+
+**It you have done testing of MASQ in the past, it is important to do a full System Cleanup to remove old MASQ core databases and config!**
+
+:::
+
+## Quick System Cleanup
+
+### Windows
+
+* [ ] Head to "Add or Remove Programs" menu in Windows, click on MASQ in the installed program list and click the "Uninstall" button
+* [ ] The uninstaller may prompt you that MASQ is still running, and to click OK to stop process to complete uninstall. Click OK on this option
+* [ ] Follow the cleanup script guide [below here](https://docs.masq.ai/masq/masq-web3-browser/install-requirements/system-cleanup#cleanup-batchfiles)
+
+:::warning
+
+You will need to **end the background service**`MASQNode`(named MASQDaemon or MASQNode) on your machine if this is still running after an uninstall.
+
+:::
+
+### MacOS
+
+There is a specific MASQ Uninstaller tool that was created with v0.9.2 to assist users to system cleanup.
+
+* [ ] Download the MASQ Uninstaller tool [here](https://dc42o9gejgcac.cloudfront.net/MASQUninstaller-unsigned.zip)
+* [ ] Open the ZIP archive and move the app folder package named "MASQ Uninstaller" to your filesystem
+* [ ] Double click on it and it should simply run as an app - there will be a Prompt that asks you to restart
+* [ ] Click Yes to restart your computer
+
+### Linux
+
+For Linux snap it's a single command: `sudo snap remove masq`
+
+***
+
+## Full System Cleanup Manual Steps
+
+#### All previous MASQ installers, directories and databases will need to be deleted. Ensure you follow the steps below to prepare your system before you install the latest MASQ software
+
+<Tabs>
+<TabItem value="windows" label="Windows">
+
+You can use the Windows batch file to handle all of this is a few simple clicks [below](system-cleanup#using-batch-file-on-windows-to-clean-setup-files)!
+
+* [ ] Uninstall any previous version of MASQ from machine
+* [ ] Remove the firewall exception for masqnode.exe (more just to keep things clean)
+*   [ ] Move any logs that need to be inspected or saved and **delete** node-data.db from&#x20;
+
+    `C:\Windows\System32\config\systemprofile\AppData\Local\MASQ`
+
+    *   [ ] **NOTE:** You will need to manually navigate to C:\Windows\System32\config\systemprofile\AppData\Local\MASQ\\
+
+        Pasting it the path in Explorer may not work the first time due to permissions
+* [ ] Delete any Electron files in directory: `C:\Users\<USER>\AppData\Local\electron`
+* [ ] Delete the cache and setting files in directory: `C:\Users\<USER>\AppData\Roaming\MASQ`
+* [ ] Delete the cache and setting files in directory if present, from previous installers: `C:\Users\<USER>\AppData\Local\MASQ`
+* [ ] Check your MASQ installation folder before doing any new installs, and ensure the masqnode.exe file has been removed. If not follow breaking changes instructions:
+  * [ ] **Open Task Manager**
+  * [ ] **Navigate/Find to the Services tab**
+  * [ ] **Locate 'MASQ Daemon' and right click it and select "Stop" service.**
+  * [ ] **Then you can delete the MASQNode.exe file from the previous installation directory under your installation directory (in Windows this is default under 'Program Files')**
+
+You can also use the Windows batch file to handle all of this is a few simple clicks [below](system-cleanup#using-batch-file-on-windows-to-clean-setup-files)!
+
+:::warning
+
+A few Windows 10 users have reported that their logs and node-data.db file may appear in this filepath:\
+C`:\Windows\SysWOW64\config\systemprofile\AppData\Local\MASQ`
+
+:::
+
+</TabItem>
+<TabItem value="macos" label="MacOS">
+
+:::tip
+
+Many testers have reported using AppZapper very successfully to remove all logs and previous installer caches on MacOS:\
+[https://www.appzapper.com/](https://www.appzapper.com/)\
+\
+Otherwise you can follow manual file removal steps below:
+
+:::
+
+* [ ] Remove the firewall exception for masqnode.exe (more just to keep things clean)
+*   [ ] Move any logs that need to be inspected or saved and **delete** node-data.db from&#x20;
+
+    `Users/\{yourUser\}/library/Application Support/MASQ`
+* [ ] Delete any Electron files in directory: `Users/\{yourUser\}/library/Application Support/Electron`
+* [ ] Delete the cache and setting files in directory: `Users/\{yourUser\}/Applications/MASQ`
+* [ ] Open 'Activity Monitor' and search for 'masq', **Force** **Quit** any processes running with masq in the name\
+  \
+  **Warning**: If you kill the **root** process for MASQNode, you will need to restart you PC or reinstall the MASQ app.
+
+</TabItem>
+<TabItem value="linux-snap" label="Linux Snap">
+
+*   [ ] Uninstall any previous version of MASQ from machine:
+
+    `sudo snap remove masq`
+
+</TabItem>
+<TabItem value="linux-appimage-masqnode" label="Linux AppImage + MASQNode">
+
+* [ ] Please make sure you have closed the MASQ App first and you have stopped the MASQNode process (CTRL+C in the terminal window that has MASQNode running or killing the MASQNode task in your Task Manager).
+* [ ] On Debian based Linux distributions (like Ubuntu, Mint, MX, Debian etc.) the folders and any subfolders to be removed are:
+
+`/home/<YOUR USERNAME>/.local/share/MASQ`
+
+`/home/<YOUR USERNAME>/.config/MASQ`
+
+</TabItem>
+</Tabs>
+
+***
+
+## Using Scripts to Clean Setup Files <a href="#cleanup-batchfiles" id="cleanup-batchfiles"></a>
+
+You can utilize a batch file to quickly delete cache, logs and database files in between installing/uninstalling Beta versions.
+
+Here are some suggested command scripts users can employ:
+
+<Tabs>
+<TabItem value="windows" label="Windows">
+```c
+sc stop "MASQDaemon" && sc config "MASQDaemon" start=disabled
+@RD /S /Q "C:\Windows\System32\config\systemprofile\AppData\Local\MASQ"
+@RD /S /Q "C:\Users\%USERNAME%\AppData\Roaming\MASQ"
+@RD /S /Q "C:\Users\%USERNAME%\AppData\Local\MASQ"
+@RD /S /Q "C:\Program Files\MASQ"
+@RD /S /Q "C:\Windows\SysWOW64\config\systemprofile\AppData\Local\MASQ"
+```
+
+:::tip
+
+You can also follow these steps to create a one-click batch file to run on Windows!
+
+1. Create new text document in Notepad. Paste the above into it.
+2. Save the file as a Batch (.bat) file.
+3. Uninstall MASQ, using Windows 'Programs & Features' menu
+4. **Right click batch file and select 'Run as Administrator'** to have it delete all the above folders, and remove MASQ Daemon service files
+5. Reinstall MASQ.
+
+:::
+
+</TabItem>
+<TabItem value="linux" label="MacOS/Linux">
+```sh
+clear
+sudo rm -rf /Applications/MASQ.app
+sudo rm -rf /Users/$USER/Library/Application\ Support/MASQ
+sudo rm -rf /Users/$USER/Library/Application\ Support/Electron
+sudo rm -rf /usr/local/bin/MASQNode
+sudo rm -rf /usr/local/bin/automap
+sudo rm -rf /usr/local/bin/app_versions.txt
+sudo pkill -x MASQNode
+sudo rm /Library/LaunchDaemons/ai.masq.node.daemon.plist
+```
+
+:::tip
+
+You can also follow these steps to create a one-click script file to run on MacOS!
+
+1. Open TextEdit or your text editor of choice (Atom)
+2. Create a new document
+3. Copy/paste the code from the example shell script into the new document
+4. Save it as a plain text file somewhere
+5. Rename the file extension from `.txt` to `.sh`
+6. Open a terminal window and navigate to where you saved the file
+7. Run the shell script via `sh script-name.sh`
+
+:::
+
+</TabItem>
+</Tabs>

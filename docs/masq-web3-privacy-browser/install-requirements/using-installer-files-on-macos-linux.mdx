@@ -1,0 +1,33 @@
+# Using Installer files on MacOS/Linux
+
+A set of installers are produced for Windows, MacOS (11 and higher) and Linux Ubuntu 18+ - these are produced with CI-runners (continuous integration) so rapid deployment of fixes can be done on the software.
+
+**The most updated installers will be accessible on the** [**MASQ Browser website**](https://masqbrowser.com) **download page**
+
+***
+
+### Note on Mac
+
+:::warning
+
+On many Mac systems you may need to give the MASQ App 'Full Disk Access' within the 'Security & Privacy' Settings
+
+:::
+
+### Note on using Linux Snap
+
+:::info
+
+Your system must have the Snap package manager. (Shipped with Ubuntu 18/20+) [https://snapcraft.io/docs/installing-snapd](https://snapcraft.io/docs/installing-snapd)
+
+:::
+
+**Unzip installer zip file**
+
+**Install Command**:\
+`snap install --dangerous --devmode`` `_`masq_x.x.x`_`.snap`
+
+**Uninstall command**:\
+`sudo snap remove masq`\
+\
+_NOTE:_ Linux Mint comes without snap, but there is a way to enable/install snapd [https://snapcraft.io/install/snapd/mint](https://snapcraft.io/install/snapd/mint)

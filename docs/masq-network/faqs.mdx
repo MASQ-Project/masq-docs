@@ -1,0 +1,395 @@
+# FAQ
+
+
+
+## General FAQ
+
+<details>
+
+<summary>What is the MASQ Network?</summary>
+
+The MASQ Network is privacy ecosystem built on a one-of-a-kind mesh network - designed to leverage the fundamental concepts of encrypted VPN and mesh network routing (similar to Tor concepts). Utilizing decentralized mesh routing, MASQ provides privacy and uncensored content on the internet, with no reliance on traditional VPN and Tor Protocols.
+
+MASQ offers this through a software suite, including the MASQ web3 privacy browser (based on current Chromium version maintained in Electron), and Extension app for Chrome (and soon Firefox) and a standalone MASQ Core networking software which can be run on various devices or environments.
+
+</details>
+
+<details>
+
+<summary>How will MASQ impact the world and web3 space?</summary>
+
+Where to start?! - the possibilities are truly vast, but some major impacts on the forefront would be:
+
+1. MASQ is built to allow users to explore a truly web3 browser providing a rich digital experience.&#x20;
+2. The MASQ Network, once live, will grow to a point where it cannot be shutdown. No large entity or Government could censor the network from allowing users to access the freedom of the entire Internet.
+3. Enables citizens in the most repressive countries to regain access to one of our most fundamental human rights – the **free flow of information**. For example, a user in China would be able to access Google, Netflix, YouTube, news media outlets and more.
+4. Allows users to use the features of the MASQ Network without being easily detected by oppressive regimes (which is a common issue with VPNs and Tor)
+5. Provide an uncensored platform for journalists to be able to communicate and send/receive content.
+6. Provide a foundational network layer for other dapps and communication protocols to be built as an ecosystem.
+
+</details>
+
+<details>
+
+<summary>Is there a working product?</summary>
+
+YES:
+
+MASQ Network runs on **Base mainnet** for live monetization and routing; the MASQ Browser is available for download at [https://masqbrowser.com](https://masqbrowser.com).
+
+Additionally, the MASQ Core software is an open source codebase where development continues with stability improvements for production mesh routing.
+
+Technically, any advanced user can use the software at present time if they have some command line experience (CLI) - check out the [advanced-use](../advanced-use/ "mention") documentation.
+
+Once a user creates a network, they are assigned a Node ID (also known as a public node descriptor) which will then be used to allow other users to connect directly to your node.
+
+Routing automatically takes place once there are 6 or more nodes connected together in a mesh through the MASQ Network protocol.
+
+</details>
+
+<details>
+
+<summary>What platforms does MASQ support?</summary>
+
+Since the MASQ Node core software is written entirely in Rust, it will compile on almost any Operating System. The team supports pre-compiled beta releases for **MacOS, Linux and Windows**.
+
+Future supported platforms will be released, supported by community contributors, such as Raspberry Pi and other Linux flavours. If you are a developer who wants to test and compile on other systems, please contact the team so you can actively contribute to development.
+
+</details>
+
+<details>
+
+<summary>Who can benefit from the MASQ Network technology?</summary>
+
+The unique qualities of the MASQ Network provide value for **many types of users**.
+
+Some of these are:
+
+1. Users who want to retake their online privacy while browsing!
+2. Users who want an alternative to traditional centralized subscription based VPN services, and Tor browsing which is easily identified by data traffic inspection
+3. Users who want to gain privacy features while request content online that is normally not retrievable to them due to geo-restrictions.
+4. Users who reside in a generally unrestricted region, but want to support internet freedom and fight censorship.
+5. Users who want to earn passive income from running a Node and collecting crypto by routing traffic to other Nodes.
+
+</details>
+
+<details>
+
+<summary>What is a mesh network?</summary>
+
+A mesh network is a local network topology in which individual computers connect directly, dynamically and non-hierarchically to many other computers or "nodes". These nodes cooperate with one another to efficiently route data to/from clients. ([Wikipedia](https://en.wikipedia.org/wiki/Mesh_networking))
+
+MASQ is most accurate described as a dMeshVPN
+
+In context, when you use the MASQ Network, you connect with 4-5 others and route traffic between yourselves dynamically to complete each others data requests. **Unlike VPNs, which connect to only one other computer on a secure tunnel network.**
+
+</details>
+
+<details>
+
+<summary>How does the MASQ Network actually work?</summary>
+
+MASQ Network uses 'hops' between nodes to pass your encrypted data anonymously from one user to another. The data packets are transmitted through the network while maintaining utmost privacy and anonymity along the entire route. These hops are integral to allowing a user to retrieve content that is not available in their geolocation, but is readily served in a distant Node's region.
+
+Your data is encrypted, as such, only the final destination knows what the request directed to, but not the contents - all Nodes passing on your data cannot see what is inside. This provides **maximum** privacy while hiding the origin and destination from the routing nodes.
+
+Currently in the MASQ Network routing, when a user requests content it is retrieved by an exit node 3 hops away, and delivered back through a route across the MASQ mesh network. The route back is often using different nodes so the journey is even less hard to detect any patterns of traffic! Each node on the route (2 relay hops and the final exit node) all earn utility tokens for providing these routing and exit services, and the user requesting it will pay for consuming based on data consumed and time outstanding on debts owed.
+
+</details>
+
+<details>
+
+<summary>Can I earn $MASQ utility tokens?</summary>
+
+**Yes.** MASQ software is designed in a way to reward users supporting the MASQ network with their bandwidth.  As a user serves content to other Nodes, they earn MASQ tokens as compensation for their services. Additionally, MASQ is the crypto fuel for securing the MASQ Network monetization model, and is an ERC20 utility token currently on Ethereum and Polygon blockchains.
+
+</details>
+
+<details>
+
+<summary>Does it cost anything to run MASQ?</summary>
+
+On Base mainnet you pay **$MASQ** for consumed routing plus **ETH on Base** for gas. Anyone can download the MASQ Browser or the open source MASQ Node core software.
+
+MASQ Premium features in the Browser can be unlocked by purchasing a subscription with crypto or Stripe, or by holding **$MASQ** as described on [masqbrowser.com/premium](https://masqbrowser.com/premium).
+
+Monetization uses fixed-rate billing with **$MASQ** per packet and byte of data.
+
+In the future free market dynamics will be added where users can choose their min and max rates for serving and consuming data.
+
+</details>
+
+<details>
+
+<summary>When I run MASQ, will my ISP be able to see what I do?</summary>
+
+Like most common HTTP/S traffic from your web browser, your ISP will only be able to detect normal data traffic going to other IP addresses on the MASQ Network. This is similar to how your traffic would go to a VPN server, but often ISPs can search those VPN servers online and conclude you are using those services. Since MASQ Network is a network of pseudo-anonymous users, there is no connection to anything unusual.
+
+Your data is encrypted and routed elsewhere in the network, thus your data request is not visible or open to interception in any way which could reveal where your request is going.
+
+</details>
+
+<details>
+
+<summary>How is MASQ different from VPN services (Virtual Private Network)?</summary>
+
+MASQ Network currently operates above the level of a VPN, without many of the weaknesses seen today.
+
+Unlike traditional VPN services, MASQ software is NOT an end-to-end client-to-server solution where you are simply connected to one other user. Since it operates as a mesh network, a user is connected to many Nodes securely, and this allows more privacy and access to more worldwide content.
+
+Also, users can use MASQ without a subscription, and can just pay with the MASQ utility token as they browse with their MASQ software active.
+
+**See** [**Encryption Methods**](../core-concepts/encryption-methods-explained) **in our Core Concepts**
+
+</details>
+
+<details>
+
+<summary>How is MASQ different from Tor?</summary>
+
+The main difference with Tor, is that data used on the Tor network is identifiable as being from Tor nodes, therefore isn't exactly hidden from any watchdogs or malicious parties. Further, exit nodes for Tor are on a public list. Some regions and ISPs block these nodes so users are not able to get their data requests using the Tor network
+
+#### Technical Level
+
+MASQ Node carries only TLS connections between the browser and the server, not between the exit Node and the server the way Tor does. This means that establishing TLS connections is slightly slower for Node than for Tor, but that:
+
+* even an evil, compromised exit Node still can't see your unencrypted data, the way a Tor exit node can; and
+* it's much more difficult to hold you legally responsible for data that passes through your Node because you can prove you couldn't have seen it.
+
+**See** [**Encryption Methods**](../core-concepts/encryption-methods-explained) **in our Core Concepts**
+
+</details>
+
+***
+
+## How does MASQ work?
+
+Since MASQ Network is built on an entirely unique network protocol ([gossip-protocol.md](../core-concepts/gossip-protocol.md "mention")), it operates on the top of the network stack using leading edge communication - **no out of the box OpenVPN protocols, VPN software, using Tor node infrastructure or other means.**
+
+<details>
+
+<summary>How do Users (Nodes) connect &#x26; communicate?</summary>
+
+All users across the MASQ Network act as Nodes - they communicate using a special [Gossipʼ networking protocol](../core-concepts/gossip-protocol), providing a means of communicating with neighbors without having to reveal too much information about themselves.
+
+Nodes connected directly together (only 1-hop away) are called neighbors, and these neighborhoods can overlap and span across the entire mesh network
+
+This allows them to connect and send CORES packages (a special encrypted type of data transport packet for MASQ that looks like TCP packets) to each other securely, and identify when Nodes are allowed to route requests.
+
+</details>
+
+<details>
+
+<summary>What is a MASQ neighborhood?</summary>
+
+Each user in the MASQ Network is part of a subset of connected Nodes that called a Neighborhood. Each Neighborhood is responsible for keeping track of other Nodes in the network, their reputation, and if they have active connections to one another.
+
+The neighborhood groups of nodes also provide layers of abstraction, so any one user is only aware of up to 5 other users in their neighborhood.
+
+Check out [MASQ Neighborhoods](../core-concepts/neighborhoods/)
+
+</details>
+
+<details>
+
+<summary>How does Gossip help the Network stay secure?</summary>
+
+Gossip allows Nodes to 'know' if they can connect to each other, and also if they can complete requests for each other, without revealing personal identifiers.
+
+Gossip also allows the Network to ‘self-heal' so that routing can continue around the Network if Nodes happen to go offline, get congested or are ‘bad actorsʼ
+
+</details>
+
+<details>
+
+<summary>How does the MASQ Network send data? - CORES packages​</summary>
+
+The MASQ Network uses packages of data called [CORES packets](../core-concepts/cores-packages/) – it is the unit of clandestine communication between two MASQNodes.
+
+It stands for:
+
+**CLIENT – ORIGIN – RELAY – EXIT – SERVER**
+
+It is how data travels in the MASQ Network!
+
+A Neighborhood is composed of multiple MASQ Nodes. Each Node is only aware of its immediate neighbors, and their IP addresses, through a unique node descriptor.
+
+The limit of immediate neighbors is 5 Nodes, thus limiting the ability of Nodes to identify the wider network.
+
+This helps ensure anonymity for the Nodes and boosts security by preventing the level to which any attacker could potentially penetrate the network.
+
+The Neighbor Node Descriptor is a kind of pseudo-anonymous identifier to connect nodes in a Neighborhood.
+
+</details>
+
+<details>
+
+<summary>How does the Network trust that users are 'paying' for your Traffic Requests?</summary>
+
+The originating Node (the one requesting data from the Network) will have a route consisting of several Nodes to complete the data request.
+
+For each of these other Nodes it is requesting services from, it will sign that Node's public key with its consuming wallet's private key (which includes hashing for security).
+
+This process proves that the originating Node knows the private key of it's consuming wallet so it can pay for it's own requests!
+
+Nodes providing routing services keep track of what other users owe them via public wallet address - if a user Node does not pay within certain thresholds, then it will result in a temporary ban from routing for that node (this is referred to as being _delinquent_)
+
+</details>
+
+<details>
+
+<summary>How are user debts and credits tracked and kept accountable?</summary>
+
+Encrypted in each node database there is a set of financials table managed by an Accountant module which keeps track of earning wallet addresses of the nodes that your Node needs to pay for serving or routing traffic.
+
+Debts are referred to as 'payables' and credits are referred to as 'receivables'.
+
+The Accountant also keeps track of any MASQ peers that owe you for performing routing services for them.
+
+Since earning wallet is public non-identifying information, your node will simply send the MASQ tokens to them at certain thresholds built-in to the accountant scanning.
+
+</details>
+
+<details>
+
+<summary>How is the Accountant Module decentralized? </summary>
+
+Since the financials table is operating similar to a DLT type list (distributing ledger technology), if it is tampered with, other nodes will be able to tell that the payables or receivables isn't correct.
+
+If a malicious node tried to change the amounts they were owed for example, the other nodes would reference their own table during periodic scanning, and see that debts are unpaid or underpaid.
+
+</details>
+
+<details>
+
+<summary>Can users run more than one MASQ node behind one IP Address?</summary>
+
+**No - only one Node can be run per Public IP address.**
+
+It is important to understand that even running multiple Nodes through one IP will be limited by bandwidth, so there is not much benefit to do so.
+
+</details>
+
+## Security
+
+<details>
+
+<summary>Is traffic routed through MASQ Node <a href="../core-concepts/encryption-methods-explained.md">encrypted</a>?</summary>
+
+ABSOLUTELY - all traffic inbound and outbound is encrypted and other nodes in the network cannot neither inspect the contents, nor identify the route of the data through the network.
+
+</details>
+
+<details>
+
+<summary>How is Network Routing Security Technically Designed?</summary>
+
+This is arguably what stands out most about the MASQ Network technology when compared to other VPN, dVPN solutions (many are simply end-to-end client-server tunnels) or even Tor.
+
+MASQ Node routes requests through a number of peers in hops but has the following dynamics for underlying network security:
+
+1. All HTTPS consuming traffic is already encrypted normally through the way modern Internet protocol operates.
+2. Uniquely in MASQ Network, the consuming traffic is encrypted by the TLS handshake between the browser and the server – all the CORES packages are encrypted with the keypairs your Node is using for Network traffic.
+3. The request payload is encrypted for the exit node ONLY and the response payloads are encrypted for the consuming origin ONLY.
+
+Therefore no Node along the route can inspect the contents of the data payload from the server, not even the Exit Node!
+
+</details>
+
+<details>
+
+<summary>Do other Nodes know my IP address?</summary>
+
+Only a node directly connected to you (your immediate neighbor) will know your IP address.  The only other identifier that could be known on the network is your Node's public key. Therefore, any other MASQ Node cannot link any of the following together **besides your immediate neighbors**:
+
+* IP address
+* Consuming wallet
+* Earning Wallet
+* Node descriptor
+
+Important to note: Consuming wallet is never part of any Gossip record
+
+**Unless you use the same wallet for both Consuming and Earning**, no party but you will be able to directly associate your consuming wallet with your Node public key.
+
+</details>
+
+<details>
+
+<summary>How has MASQ designed risk management into Node?</summary>
+
+As the network grows and becomes available there will be a time when outside forces will want to intercept or prevent the network from being utilized in the way it was intended. To create another barrier to prevent malicious intent, data packages will be wrapped in a mask – this is referred to as ‘clandestine routing'
+
+The first mask will be basic encryption methods used today – these masks will provide an extra layer of security similar to typical HTTPS traffic.
+
+As development of more in-depth features for the network continues the goal is to create clandestine routes. Each CORES package will be wrapped in a layer of obscurity that will resemble different types of traffic.
+
+Normally, traffic patterns viewed over time can be distinguishable. By masking packages in random traffic patterns, it deters typical packet sniffing and traffic analysis methods, and prevents the blocking of requests.
+
+This entire layer will wrap around CORES packages and its various components before being handed off to other nodes
+
+</details>
+
+<details>
+
+<summary>Can the Originating Node Detect who is an 'Exit Node'?</summary>
+
+In general the answer is NO! - as long as the route is 3-hop, meaning the route length is at least CORRES (**C**lient, **O**rigin, **R**elay, **R**elay, **E**xit, **S**erver) no one Node will ever be able to determine both the origin and the exit. This is fundamentally why the **'MASQ' 3-hop route is the default minimum recommended** route length for untraceable (and in future _clandestine_) traffic across the MASQ Network.
+
+</details>
+
+:::warning
+
+MASQ is still in development and current has a Beta software that is not in final stage of it's development - **Please do not do anything that may cause issues with your countries current rules and regulations**\
+\
+**MASQ Network and developers are not providing any guarantees (including guarantees of performance) or warranties of any kind, whether statutory, expressed, or implied (including all warranties of merchantability and fitness for a particular purpose, and all warranties arising from course of dealing or usage of trade.)**
+
+:::
+
+## Network Monetization Model <a href="#incentive-monetization-model" id="incentive-monetization-model"></a>
+
+<details>
+
+<summary>How do I earn $MASQ using the software?</summary>
+
+You earn **$MASQ** peer-to-peer when your node routes traffic for others while serving bandwidth through MASQ Node or the MASQ Browser serving mode. Live monetization runs on **Base** using **$MASQ** plus ETH for gas.
+
+[MASQ official Token Contracts](../masq-token/masq-erc20)
+
+</details>
+
+<details>
+
+<summary>How does the MASQ Node software make sure that Debts are paid?</summary>
+
+This is cleverly designed by developers to be handled with scanning intervals and thresholds.
+
+The Accountant Module keeps track of the balances of consuming wallets that are connected to you and your neighborhood. If debts are not paid after certain thresholds, then that node will be banned from consuming traffic on the network.
+
+Also, if a MASQ user is trying to run Node without a consuming wallet specified, the software will shutdown with a warning that wallets are not configured correctly.
+
+If a User does not have **$MASQ** and gas (**ETH on Base**) present then they will also be banned by network peers after a brief grace-period of consuming.
+
+</details>
+
+<details>
+
+<summary>How is the Monetization model Tracked?</summary>
+
+MASQ Node operates for each user with two wallets specified:
+
+* Consuming Wallet – used to pay for services used by the user on the Network
+* Earning Wallet – used to store the payments for requests provided to other users on the Network
+
+Users can specify an earning wallet address in the Node software to direct your earnings.
+
+</details>
+
+<details>
+
+<summary>How is routing and browsing calculated?</summary>
+
+Much like ‘balancing the booksʼ in accounting, the Node software makes use of an inbuilt Accountant Module. This module keeps track of payables (consuming traffic) and receivables (serving traffic) and will action payments when certain thresholds are reached. These scans occur regularly to ensure that debts are paid in a balanced way, and avoids the Node being banned for non-payment.
+
+The amounts are very dynamic in practice (due to dropped requests, refreshes and various other additional factors that occur in real world browsing), but 3-hop routing gravitates towards 700-1000 GB per $MASQ **on average**
+
+</details>

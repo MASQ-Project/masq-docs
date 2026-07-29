@@ -1,0 +1,42 @@
+# masq Interface
+
+`masq` is a command-line prompt user interface (UI) to the MASQ Daemon and the MASQ Node
+
+It is shipped as an executable and is run from a Terminal window - this binary is included in releases on the "MASQ Core" Node GitHub repo.
+
+Below is the help output for commands used
+
+\{% code title="masq> help" overflow="wrap" %\}```
+// USAGE: masq [OPTIONS] [SUBCOMMAND]
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+OPTIONS: 
+        --ui-port If the Daemon is listening for connections at some port other
+        than 5333, specify that port here. Must be between 1025 and 65535. 
+        [default: 5333]
+        
+SUBCOMMANDS: 
+    change-password      Changes the existing password on the Node database
+    check-password       Checks whether the supplied db-password (if any) is the correct password for the Node's database
+    configuration        Displays a running Node's current configuration.
+    connection-status    Returns the current stage of the connection status. (NotConnected, ConnectedToNeighbor or ThreeHopsRouteFound)
+    crash                Causes an element of the Node to crash with a specified message. Only valid if the Node has been started with '--crash-point message'
+    descriptor           Displays the Node descriptor of the running MASQNode. Only valid if Node is already running.
+    financials           Displays financial statistics of this Node. Only valid if Node is already running.
+    generate-wallets     Generates a pair of wallets (consuming and earning) for the Node if they haven't been generated already.
+    help                 Prints this message or the help of the given subcommand(s)
+    recover-wallets      Recovers a pair of wallets (consuming and earning) for the Node if they haven't been recovered already
+    scan                 Orders the Node to perform an immediate scan of the indicated type
+    set-configuration    Sets Node configuration parameters being enabled for this operation when the Node is running
+    set-password         Sets an initial password on the Node database
+    setup                Establishes (if Node is not already running) and displays startup parameters for MASQNode.
+    shutdown             Shuts down the running MASQNode. Only valid if Node is already running.
+    start                Starts a MASQNode with the parameters that have been established by 'setup.' Only valid if Node is not already running.
+    wallet-addresses     Provides addresses of consuming and earning wallets.Only valid if the wallets were successfully generated (generate-wallets) or recovered (recover-wallets)
+```
+\{% endcode %\}
+
+

@@ -1,0 +1,7 @@
+# MASQ Neighborhoods
+
+Each MASQ Node in the MASQ Network contains a subsystem that we call the Neighborhood. The Neighborhood is responsible for keeping track of other Nodes in the network, remembering how (and whether) they're connected to one another, and storing other information about them as well.
+
+Currently, there are plans for neighborhoods to also remember things like when they were last used, what region they are operating in, how fast they have proven to be and whether they're acting suspiciously. Also, whenever a consuming Node wants to send a CORES package through the network, its Neighborhood is responsible for analyzing the network and determining what route the CORES package should take. This takes place through a 'routing engine' in the Node which evaluates all possible known routes in the Neighborhood and ranks them according to the most desirable (usually based on price of the route, number of hops etc).
+
+The concept of MASQ Neighborhoods is also such that no single MASQ Node will be able to have awareness or knowledge of the entire MASQ Network - neighborhoods have a limitation in number of Nodes within reach of the Gossip protocol.
