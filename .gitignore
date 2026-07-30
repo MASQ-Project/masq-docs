@@ -25,3 +25,6 @@ gitbook-src/
 # Local build diagnostics
 build-log.txt
 
+# Local working notes (plans, QA scratch)
+working-docs/
+
