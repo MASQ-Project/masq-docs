@@ -101,7 +101,7 @@ const sidebars = {
           label: 'MASQ Node from CLI',
           link: {type: 'doc', id: 'advanced-use/masq-node-from-cli/index'},
           items: [
-            'advanced-use/masq-node-from-cli/untitled-1',
+            'advanced-use/masq-node-from-cli/configuration-methods',
             'advanced-use/masq-node-from-cli/masq-interface',
             'advanced-use/masq-node-from-cli/masq-daemon-commands',
             'advanced-use/masq-node-from-cli/configuring-masq-node',
@@ -127,8 +127,8 @@ const sidebars = {
           link: {type: 'doc', id: 'advanced-use/common-challenges/index'},
           items: [
             'advanced-use/common-challenges/firewall-exceptions',
-            'advanced-use/common-challenges/untitled-3',
-            'advanced-use/common-challenges/untitled-2',
+            'advanced-use/common-challenges/port-53-problems',
+            'advanced-use/common-challenges/user-permissions-real-user',
           ],
         },
       ],

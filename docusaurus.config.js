@@ -40,7 +40,6 @@ const config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: './sidebars.js',
-          editUrl: 'https://github.com/MASQ-Project/masq-docs/tree/main/',
         },
         blog: false,
         theme: {
