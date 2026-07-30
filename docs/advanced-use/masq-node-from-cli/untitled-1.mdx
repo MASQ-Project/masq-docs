@@ -14,16 +14,13 @@ Any piece of configuration information can be provided through any of these chan
 
 Configuration information provided in the environment will supersede conflicting information provided in the configuration file, and information provided on the command line will supersede conflicting information from both of the other sources.
 
-### Command line  <a href="#command-line" id="command-line"></a>
-
+### Command line \{#command-line}
 This is the easiest. In this file, all our documentation of the configuration options shows you how to provide them on the command line. Keep in mind, though, that command lines tend to be preserved by the operating system for display to users who want to see process lists. Therefore, the command line may not be the best place to specify sensitive or secret configuration information. (Nothing prevents you from doing this, though, so be careful.)
 
-### Shell Environment  <a href="#shell-environment" id="shell-environment"></a>
-
+### Shell Environment \{#shell-environment}
 If you see that the command line accepts a parameter such as `--clandestine-port 1234`, then you can supply that same parameter in the environment by setting the MASQ\_CLANDESTINE\_PORT environment variable to 1234. Note that you need to remove the initial `--` prefix, convert the name to all uppercase, and add a MASQ prefix to namespace the parameter against other applications that might look for a similar variable.
 
-#### Configuration File  <a href="#configuration-file" id="configuration-file"></a>
-
+#### Configuration File \{#configuration-file}
 The configuration file, by default, resides in the data directory (see the `--data-directory` parameter for further information) and is named config.toml. If you leave the configuration file unspecified, this is where MASQ Node will look for it. If it's found, it will be used; if it's not, MASQ Node will act as though it had been found but empty. But if you want to use a different file, specify it either as `--config-file` on the command line or as MASQ\_CONFIG\_FILE in the environment. If you specify a relative filename, MASQ Node will look for the configuration file in the data directory; if you specify an absolute filename, MASQ Node will not use the data directory to find the configuration file. The configuration file should be in TOML format. TOML is a competitor to other formats like JSON and YAML, but the MASQ Node uses only scalar settings, not arrays or tables.
 
 If you see that the command line accepts a parameter such as `--clandestine-port 1234`, then you can supply that same parameter in the configuration file by adding the following line to it: `clandestine-port = "1234"` Note that you need to remove the initial `--`prefix. All the configuration parameters will work if you supply their values as double-quoted strings, but if they're numeric values, you can supply them numerically as well--for example, `clandestine-port = 1234` Keep in mind that a configuration file is persistent information: anyone who has or can gain read access to the file can read whatever's in it, whether MASQ Node is running or not. Therefore, the configuration file may not be the best place to specify sensitive or secret configuration information. _(Nothing prevents you from doing this, though, so be careful.)_

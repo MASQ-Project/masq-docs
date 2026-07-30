@@ -1,33 +1,28 @@
 # MASQ Node Routing Components
 
-## The Hopper <a href="#the-hopper" id="the-hopper"></a>
-
+## The Hopper \{#the-hopper}
 The purpose of the Hopper is to interpret CORES packages, and determine their next destination. The hopper receives incoming CORES packages, 'unwraps' an initial string of bytes - enough information to interpret what is the next 'hop' in the package route - and thus completing the required next phase of the package route. The possible phases that a Node may execute are:
 
 * send the request to be served by the Proxy Server
 * make a request to a website on behalf of the originating node
 * or just move the request across the route
 
-## Proxy Client  <a href="#proxy-client" id="proxy-client"></a>
-
+## Proxy Client \{#proxy-client}
 The purpose of Proxy Client is to convert CORES packages from the MASQ Network into regular (non-clandestine) requests and convert the regular (non-clandestine) responses back into CORES packages to be transmitted back across MASQ Network. A Proxy Client within a Node neighbor several hops away is the component that does the non-clandestine communication with the broader clear-web on behalf of the originating node. This is what would be used by an Exit Node. The Proxy Client converts your CORES package back into a regular request, gets the response, and 'wraps' it in a new CORES package. That CORES package goes back onto the MASQ Network to continue on the Route back to the originating node.
 
-## Proxy Server <a href="#proxy-server" id="proxy-server"></a>
-
+## Proxy Server \{#proxy-server}
 The purpose of the Proxy Server acts as the only server your device can get information from. It is a proxy for all your requests. For example, every website you request when running MASQ Node will be delivered via the proxy server. As far as your system is concerned this server represents every server.
 
 Internally this means all traffic bound for MASQ Node is routed to localhost on 127.0.0.1
 
-## Blockchain Bridge  <a href="#blockchain-bridge" id="blockchain-bridge"></a>
-
+## Blockchain Bridge \{#blockchain-bridge}
 The blockchain bridge purpose is to communicate with the actual blockchain - at this present time this is the Ethereum blockchain. The blockchain bridge does not connect directly to the blockchain itself. It leverages the Proxy Client to make the connection. This allows nodes to subvert restrictions from access to blockchain information in the same way that Node subverts website restrictions via the Proxy Server.
 
 Utilizing a cloud blockchain service or self-hosted node allows this and the code parameter is `--blockchain-service-url`
 
 e.g. [Infura](https://infura.io/)​
 
-## DNS Utility <a href="#dns-utility" id="dns-utility"></a>
-
+## DNS Utility \{#dns-utility}
 The purpose of our DNS is to be the OS-agnostic tool that the MASQ Node user interface will use to inspect and manage the DNS settings of the machine for routing its TCP communications over the MASQ Network.
 
 It is built as a binary and can be run from the command line.

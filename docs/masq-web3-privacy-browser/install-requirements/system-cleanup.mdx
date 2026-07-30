@@ -15,7 +15,7 @@ import TabItem from '@theme/TabItem';
 
 * [ ] Head to "Add or Remove Programs" menu in Windows, click on MASQ in the installed program list and click the "Uninstall" button
 * [ ] The uninstaller may prompt you that MASQ is still running, and to click OK to stop process to complete uninstall. Click OK on this option
-* [ ] Follow the cleanup script guide [below here](https://docs.masq.ai/masq/masq-web3-browser/install-requirements/system-cleanup#cleanup-batchfiles)
+* [ ] Follow the cleanup script guide [below here](#cleanup-batchfiles)
 
 :::warning
 
@@ -45,7 +45,7 @@ For Linux snap it's a single command: `sudo snap remove masq`
 <Tabs>
 <TabItem value="windows" label="Windows">
 
-You can use the Windows batch file to handle all of this is a few simple clicks [below](system-cleanup#using-batch-file-on-windows-to-clean-setup-files)!
+You can use the Windows batch file to handle all of this in a few simple clicks [below](#cleanup-batchfiles)!
 
 * [ ] Uninstall any previous version of MASQ from machine
 * [ ] Remove the firewall exception for masqnode.exe (more just to keep things clean)
@@ -65,7 +65,7 @@ You can use the Windows batch file to handle all of this is a few simple clicks 
   * [ ] **Locate 'MASQ Daemon' and right click it and select "Stop" service.**
   * [ ] **Then you can delete the MASQNode.exe file from the previous installation directory under your installation directory (in Windows this is default under 'Program Files')**
 
-You can also use the Windows batch file to handle all of this is a few simple clicks [below](system-cleanup#using-batch-file-on-windows-to-clean-setup-files)!
+You can also use the Windows batch file to handle all of this in a few simple clicks [below](#cleanup-batchfiles)!
 
 :::warning
 
@@ -118,8 +118,7 @@ Otherwise you can follow manual file removal steps below:
 
 ***
 
-## Using Scripts to Clean Setup Files <a href="#cleanup-batchfiles" id="cleanup-batchfiles"></a>
-
+## Using Scripts to Clean Setup Files \{#cleanup-batchfiles}
 You can utilize a batch file to quickly delete cache, logs and database files in between installing/uninstalling Beta versions.
 
 Here are some suggested command scripts users can employ:
