@@ -11,7 +11,7 @@ const config = {
     v4: true,
   },
 
-  url: 'https://test-docs.masqbrowser.com',
+  url: 'https://docs.masqbrowser.com',
   baseUrl: '/',
 
   organizationName: 'MASQ-Project',

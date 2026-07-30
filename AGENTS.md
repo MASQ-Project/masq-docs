@@ -8,8 +8,8 @@ Public **MASQ Network documentation** site: **Docusaurus 3** → **GitHub Pages*
 
 | | |
 |---|---|
-| Live (test) | https://test-docs.masqbrowser.com |
-| Prod (planned) | https://docs.masqbrowser.com — see [`CUTOVER.md`](CUTOVER.md) |
+| Live | https://docs.masqbrowser.com |
+| Staging (former) | https://test-docs.masqbrowser.com — see [`CUTOVER.md`](CUTOVER.md) |
 | GitHub | https://github.com/MASQ-Project/masq-docs |
 | Content | `docs/**/*.mdx` |
 | Assets | `static/img/assets/` (kebab-case filenames) |
@@ -114,7 +114,7 @@ npm run build
 - Pages source: **GitHub Actions** (not `gh-pages` branch upload by hand).
 - Test domain is configured via `url` in `docusaurus.config.js` and `static/CNAME`.
 - Subdomains need a **CNAME → `masq-project.github.io`** only (no GitHub A records unless apex).
-- Production cutover steps: follow [`CUTOVER.md`](CUTOVER.md) exactly; do not flip `docs.masqbrowser.com` without user confirmation.
+- Production domain cutover: follow [`CUTOVER.md`](CUTOVER.md); confirm DNS / Pages / GitBook detach after merging to `main`.
 
 ## Current hardening focus
 
