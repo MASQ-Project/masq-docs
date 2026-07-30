@@ -5,7 +5,7 @@ const sidebars = {
   docsSidebar: [
     {
       type: 'category',
-      label: 'MASQ Network',
+      label: '🌐 MASQ Network',
       link: {type: 'doc', id: 'index'},
       items: [
         'masq-network/what-is-masq',
@@ -16,61 +16,54 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'MASQ Token',
-      link: {type: 'doc', id: 'masq-token/index'},
-      items: [
-        'masq-token/token-economy',
-        'masq-token/masqonbase-superbridge',
-        'masq-token/masq-erc20',
-        'masq-token/testnet-contracts',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'MASQ Web3 Privacy Browser',
-      link: {type: 'doc', id: 'masq-web3-privacy-browser/index'},
+      label: '💻 MASQ Privacy Browser',
+      link: {type: 'doc', id: 'masq-privacy-browser/index'},
       items: [
         {
           type: 'category',
           label: 'Install Requirements',
-          link: {type: 'doc', id: 'masq-web3-privacy-browser/install-requirements/index'},
+          link: {type: 'doc', id: 'masq-privacy-browser/install-requirements/index'},
           items: [
-            'masq-web3-privacy-browser/install-requirements/masq-tokens',
-            'masq-web3-privacy-browser/install-requirements/using-installer-files-on-macos-linux',
-            'masq-web3-privacy-browser/install-requirements/system-cleanup',
+            'masq-privacy-browser/install-requirements/masq-tokens',
+            'masq-privacy-browser/install-requirements/using-installer-files-on-macos-linux',
+            'masq-privacy-browser/install-requirements/system-cleanup',
           ],
         },
-        'masq-web3-privacy-browser/beta-faqs',
+        'masq-privacy-browser/beta-faqs',
         {
           type: 'category',
-          label: 'Updating MASQ Web3 Browser',
+          label: 'Updating MASQ Browser',
           link: {
             type: 'doc',
-            id: 'masq-web3-privacy-browser/updating-masq-web3-browser/index',
+            id: 'masq-privacy-browser/updating-masq-browser/index',
           },
           items: [
-            'masq-web3-privacy-browser/updating-masq-web3-browser/breaking-change-releases',
-            'masq-web3-privacy-browser/updating-masq-web3-browser/over-the-air-updating',
+            'masq-privacy-browser/updating-masq-browser/breaking-change-releases',
+            'masq-privacy-browser/updating-masq-browser/over-the-air-updating',
           ],
         },
-        'masq-web3-privacy-browser/providing-feedback',
+        'masq-privacy-browser/providing-feedback',
         {
           type: 'category',
           label: 'Troubleshooting',
-          link: {type: 'doc', id: 'masq-web3-privacy-browser/troubleshooting/index'},
+          link: {type: 'doc', id: 'masq-privacy-browser/troubleshooting/index'},
           items: [
-            'masq-web3-privacy-browser/troubleshooting/checking-masq-browser-version',
-            'masq-web3-privacy-browser/troubleshooting/ports-issue',
-            'masq-web3-privacy-browser/troubleshooting/port-80-common-to-windows',
-            'masq-web3-privacy-browser/troubleshooting/macos-user-startup-issue',
+            'masq-privacy-browser/troubleshooting/checking-masq-browser-version',
+            'masq-privacy-browser/troubleshooting/ports-issue',
+            'masq-privacy-browser/troubleshooting/port-80-common-to-windows',
+            'masq-privacy-browser/troubleshooting/macos-user-startup-issue',
           ],
         },
       ],
     },
-    'masq-extension-app',
+    {
+      type: 'doc',
+      id: 'masq-extension-app',
+      label: '🖱️ MASQ Extension App',
+    },
     {
       type: 'category',
-      label: 'Core Concepts',
+      label: '📑 Core Concepts',
       link: {type: 'doc', id: 'core-concepts/index'},
       items: [
         'core-concepts/masq-network-dynamics',
@@ -93,7 +86,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Advanced Use',
+      label: '👨‍💻 Advanced Use',
       link: {type: 'doc', id: 'advanced-use/index'},
       items: [
         {
@@ -101,7 +94,7 @@ const sidebars = {
           label: 'MASQ Node from CLI',
           link: {type: 'doc', id: 'advanced-use/masq-node-from-cli/index'},
           items: [
-            'advanced-use/masq-node-from-cli/untitled-1',
+            'advanced-use/masq-node-from-cli/configuration-methods',
             'advanced-use/masq-node-from-cli/masq-interface',
             'advanced-use/masq-node-from-cli/masq-daemon-commands',
             'advanced-use/masq-node-from-cli/configuring-masq-node',
@@ -127,15 +120,25 @@ const sidebars = {
           link: {type: 'doc', id: 'advanced-use/common-challenges/index'},
           items: [
             'advanced-use/common-challenges/firewall-exceptions',
-            'advanced-use/common-challenges/untitled-3',
-            'advanced-use/common-challenges/untitled-2',
+            'advanced-use/common-challenges/port-53-problems',
+            'advanced-use/common-challenges/user-permissions-real-user',
           ],
         },
       ],
     },
     {
       type: 'category',
-      label: 'Resources',
+      label: '🔷 MASQ Token',
+      link: {type: 'doc', id: 'masq-token/index'},
+      items: [
+        'masq-token/token-economy',
+        'masq-token/masqonbase-superbridge',
+        'masq-token/masq-erc20',
+      ],
+    },
+    {
+      type: 'category',
+      label: '📦 Resources',
       link: {type: 'doc', id: 'resources/index'},
       items: [
         'resources/installer-checksums',
@@ -171,51 +174,6 @@ const sidebars = {
       label: 'Legal',
       link: {type: 'doc', id: 'legal/index'},
       items: ['legal/disclaimer', 'legal/privacy-policy'],
-    },
-    {
-      type: 'category',
-      label: 'Ecosystem Accelerator',
-      link: {type: 'doc', id: 'ecosystem-accelerator/summary/index'},
-      items: [
-        'ecosystem-accelerator/summary/community-initiatives',
-        'ecosystem-accelerator/summary/retroactive-rewards',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Developers',
-      items: [
-        {
-          type: 'category',
-          label: 'Technical Documentation',
-          link: {type: 'doc', id: 'developers/dev-docs/index'},
-          items: [
-            'developers/dev-docs/masq-node-routing-components',
-            'developers/dev-docs/node-neighborhood-modes-explained',
-            'developers/dev-docs/communicating-with-masqnode',
-            'developers/dev-docs/ui-interface',
-          ],
-        },
-        'developers/qa-testing',
-        {
-          type: 'category',
-          label: 'Codebase Links',
-          link: {type: 'doc', id: 'developers/codebase-links/index'},
-          items: [
-            {
-              type: 'link',
-              label: 'Dev Project Board',
-              href: 'https://github.com/orgs/MASQ-Project/projects/8',
-            },
-            {
-              type: 'link',
-              label: 'Node README',
-              href: 'https://github.com/MASQ-Project/Node/blob/master/README.md',
-            },
-          ],
-        },
-        'developers/job-openings',
-      ],
     },
   ],
 };

@@ -1,7 +1,6 @@
 # Port 53 Problems? (usually in Windows)
 
-## Identification <a href="#identification" id="identification"></a>
-
+## Identification \{#identification}
 When you try to start your MASQ Node, do you see a message that looks something like one of these?
 ```
 thread 'main' panicked at 'Cannot bind socket to V4(0.0.0.0:53): Os { code: 10048, kind: AddrInUse, message: "Only one usage of each socket address (protocol/network address/port) is normally permitted." }'
@@ -16,34 +15,27 @@ If you see both of those parts in the message, then you are definitely afflicted
 
 If you don't care about what the problem is or why it happens, and you just want to know how to fix it, skip down to the **Solutions** section.
 
-## Background <a href="#background" id="background"></a>
-
-### Windows <a href="#windows" id="windows"></a>
-
+## Background \{#background}
+### Windows \{#windows}
 Windows includes a service called Internet Connection Sharing (ICS) that listens on port 53. It's a somewhat dated service from the days before widespread WiFi availability that allows you to make your Windows machine a nexus through which other people can connect their machines to the Internet. If you're not already aware that you're doing this, you probably don't need to have ICS active.
 
-### Linux <a href="#linux" id="linux"></a>
-
+### Linux \{#linux}
 Some Linux distributions (we know about Ubuntu Desktop >=16.04 and some versions of Mint, but there are probably others) come with an installed utility called `dnsmasq`. This utility is intended to let folks with small home LANs give intelligible names to their computers, printers, TVs, DVRs, mobile devices, and other Internet-enabled devices, rather than having to reference them by numeric IP address. You may instead have a distribution (for example Ubuntu 18.04) that uses `systemd-resolved` for this purpose. We'll generically call this dns caching.
 
 DNS caching works by putting up a small DNS server on your local machine that fields name-resolution requests for things like "LivingRoomTV" and returns IP addresses like 192.168.0.47. This means that when you want to control your TV from upstairs, or watch its video feed, or whatever it allows you to do remotely, you can call it "LivingRoomTV" (or select it from a list) rather than having to remember its IP address (which may change unexpectedly).
 
-### In General <a href="#in-general" id="in-general"></a>
-
+### In General \{#in-general}
 Any software that uses a DNS server to convert an intelligible name into an IP address will contact that DNS server on Port 53; it's part of the widely-accepted DNS protocol. Therefore, every DNS server must listen on Port 53 for requests if it expects to receive any.
 
 Unfortunately, only one server can listen on Port 53 (or any port) at one time.
 
-## The Problem <a href="#the-problem" id="the-problem"></a>
-
+## The Problem \{#the-problem}
 MASQ Node also includes a small DNS server that allows applications on your computer to send and receive data on the MASQ Network. Since this is a DNS server, it must also listen on Port 53. This means that a DNS-subverting MASQ Node and preexisting port 53 software are irredeemably inimical to one another and cannot ever operate simultaneously on the same computer.
 
 Eventually, MASQ Node will be able to operate in regimes other than DNS subversion, which means that under some circumstances, and in the presence of certain sacrifices, it will be compatible with other port 53 software; but that's in the future, not the present.
 
-## Solutions <a href="#solutions" id="solutions"></a>
-
-### Windows <a href="#windows-1" id="windows-1"></a>
-
+## Solutions \{#solutions}
+### Windows \{#windows-1}
 Internet Connection Sharing can be an annoyance. We had problems with it starting spontaneously after we stopped it, and reenabling itself and starting after we disabled it, and coming back into action over a reboot, in all cases monopolizing port 53 and preventing MASQ Node from starting. However, the solution turned out to be simple: we just installed all pending updates (in our case, they ended at version 1809), and the problem went away. We disabled ICS, and it stayed disabled.
 
 ICS can be enabled and disabled for individual network interfaces, but you'll need to disable it across your entire system to free up port 53 for MASQ Node.
@@ -52,16 +44,13 @@ To do so, press your Windows button and type Services. Scroll down to where you 
 
 If it is, then right-click on the Internet Connection Sharing item and choose Properties. Pull down the "Startup type" list and choose "Disabled" so that it can't be restarted once it stops. Now click the "Stop" button to kill the service. You'll get a dialog box with a progress bar; the service should stop fairly quickly. After it does, click "OK" and verify that the service list now shows the service as "Disabled" in the "Startup Type" column, with no value at all in the "Status" column. If that's the case, you've successfully disabled ICS.
 
-### Linux <a href="#linux-1" id="linux-1"></a>
-
+### Linux \{#linux-1}
 We know of two reasonable solutions to the **Port 53 Problem** in Linux: a complicated and annoying one that allows you to keep using dns caching, and a much simpler and easier one that consists of disabling dns caching but will no longer allow you to use intelligible names for the devices on your LAN.
 
-#### Complicated And Annoying: Docker <a href="#complicated-and-annoying-docker" id="complicated-and-annoying-docker"></a>
-
+#### Complicated And Annoying: Docker \{#complicated-and-annoying-docker}
 This solution is too complex to detail here, but in broad strokes it involves running a Docker container that contains a version of Linux that does _not_ have the **Port 53 Problem**, starting the MASQ Node and a browser in that container, and having the browser display its window on the X11 server running on your host machine. We at MASQ have used this solution in the past, and you can see how we've done it by looking in our [source code](https://github.com/MASQ-Project/Node/tree/master/node/docker/linux_node). After installing Docker on your machine, you may be able to put together a similar solution.
 
-#### Simple But Incompatible: Disable DNS Caching <a href="#simple-but-incompatible-disable-dns-caching" id="simple-but-incompatible-disable-dns-caching"></a>
-
+#### Simple But Incompatible: Disable DNS Caching \{#simple-but-incompatible-disable-dns-caching}
 **Ubuntu 18.04**
 
 Disable the service:

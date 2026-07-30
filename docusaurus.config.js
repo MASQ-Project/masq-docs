@@ -3,7 +3,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'MASQ Docs',
+  title: 'MASQ Network Documentation',
   tagline: 'MASQ Network documentation',
   favicon: 'img/favicon.ico',
 
@@ -40,7 +40,7 @@ const config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: './sidebars.js',
-          editUrl: 'https://github.com/MASQ-Project/masq-docs/tree/main/',
+          breadcrumbs: false,
         },
         blog: false,
         theme: {
@@ -50,10 +50,30 @@ const config = {
     ],
   ],
 
+  plugins: [
+    [
+      '@docusaurus/plugin-client-redirects',
+      /** @type {import('@docusaurus/plugin-client-redirects').Options} */
+      ({
+        createRedirects(existingPath) {
+          if (!existingPath.startsWith('/masq-privacy-browser')) {
+            return undefined;
+          }
+          // Old folder names kept working via client redirects
+          return [
+            existingPath
+              .replace('/masq-privacy-browser', '/masq-web3-privacy-browser')
+              .replace('/updating-masq-browser', '/updating-masq-web3-browser'),
+          ];
+        },
+      }),
+    ],
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: 'img/docusaurus-social-card.jpg',
+      image: 'img/masq-social-card.jpg',
       colorMode: {
         respectPrefersColorScheme: true,
       },
@@ -61,56 +81,22 @@ const config = {
         title: 'MASQ Docs',
         logo: {
           alt: 'MASQ',
-          src: 'img/logo.svg',
+          src: 'img/logo.png',
+          href: '/',
         },
         items: [
           {
-            type: 'docSidebar',
-            sidebarId: 'docsSidebar',
-            position: 'left',
-            label: 'Docs',
-          },
-          {
-            href: 'https://masqbrowser.com',
-            label: 'Website',
+            href: 'https://www.masqbrowser.com/downloads',
+            label: 'Download MASQ Now',
             position: 'right',
           },
           {
             href: 'https://github.com/MASQ-Project',
-            label: 'GitHub',
             position: 'right',
+            className: 'header-github-link',
+            'aria-label': 'MASQ on GitHub',
           },
         ],
-      },
-      footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Docs',
-            items: [
-              {label: 'What is MASQ?', to: '/masq-network/what-is-masq'},
-              {label: 'Browser', to: '/masq-web3-privacy-browser'},
-              {label: 'Token', to: '/masq-token'},
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {label: 'Discord', href: 'https://discord.gg/cdUsjBQrgq'},
-              {label: 'Telegram', href: 'https://t.me/MASQ_ai'},
-              {label: 'X', href: 'https://twitter.com/MASQ_ai'},
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {label: 'Website', href: 'https://masqbrowser.com'},
-              {label: 'GitHub', href: 'https://github.com/MASQ-Project'},
-              {label: 'Blog', href: 'https://masqbrowser.com/blog'},
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} MASQ Network. Built with Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,

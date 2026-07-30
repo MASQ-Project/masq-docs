@@ -72,15 +72,28 @@ def rewrite_images(content: str, asset_map: dict[str, str]) -> str:
         name = name.replace("%20", " ")
         return asset_map.get(name, slugify_filename(name))
 
+    def is_remote(raw: str) -> bool:
+        s = raw.strip().strip("<>")
+        return s.startswith(("http://", "https://", "data:"))
+
     # Prefer angle-bracket GitBook form so filenames may contain ')'
     content = re.sub(
         r"!\[([^\]]*)\]\(\s*<([^>]+)>\s*\)",
-        lambda m: f"![{m.group(1)}](/img/assets/{replace_name(m.group(2))})",
+        lambda m: (
+            m.group(0)
+            if is_remote(m.group(2))
+            else f"![{m.group(1)}](/img/assets/{replace_name(m.group(2))})"
+        ),
         content,
     )
+    # Local / relative GitBook assets only — leave remote CDN URLs (e.g. googleusercontent) intact
     content = re.sub(
         r"!\[([^\]]*)\]\(\s*((?:(?:\.\./)*(?:\.gitbook/assets/)?)[^)\s]+)\s*\)",
-        lambda m: f"![{m.group(1)}](/img/assets/{replace_name(m.group(2))})",
+        lambda m: (
+            m.group(0)
+            if is_remote(m.group(2))
+            else f"![{m.group(1)}](/img/assets/{replace_name(m.group(2))})"
+        ),
         content,
     )
     content = re.sub(

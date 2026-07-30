@@ -1,30 +1,178 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * MASQ Docs — global theme overrides (Infima).
+ * Brand blue aligned with masqbrowser.com logo (#0099FF family).
  */
 
-/* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-color-primary: #0088e6;
+  --ifm-color-primary-dark: #007acc;
+  --ifm-color-primary-darker: #0073c2;
+  --ifm-color-primary-darkest: #005f9f;
+  --ifm-color-primary-light: #1a96eb;
+  --ifm-color-primary-lighter: #339ff0;
+  --ifm-color-primary-lightest: #66b8f5;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --masq-home-card-radius: 12px;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+  --ifm-color-primary: #33aaff;
+  --ifm-color-primary-dark: #14a0ff;
+  --ifm-color-primary-darker: #0a9bff;
+  --ifm-color-primary-darkest: #0080d6;
+  --ifm-color-primary-light: #52b7ff;
+  --ifm-color-primary-lighter: #70c4ff;
+  --ifm-color-primary-lightest: #99d4ff;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Navbar logo sizing */
+.navbar__logo {
+  height: 2rem;
+}
+
+.navbar__logo img {
+  border-radius: 50%;
+}
+
+/* Homepage — GitBook-style cover + cards */
+.masq-home-cover-wrap {
+  margin: 0 0 1.75rem;
+  border-radius: var(--masq-home-card-radius);
+  overflow: hidden;
+  background: #081228;
+}
+
+.masq-home-cover {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 280px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.masq-home-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--masq-home-card-radius);
+  color: inherit;
+  text-decoration: none !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.masq-home-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  color: inherit;
+}
+
+.masq-home-card__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background: #0a1628;
+}
+
+.masq-home-card__title {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+@media (max-width: 996px) {
+  .masq-home-cover {
+    max-height: 180px;
+  }
+}
+
+/* Responsive YouTube (and similar) embeds */
+.masq-video {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin: 1.5rem 0;
+  border-radius: var(--masq-home-card-radius);
+  overflow: hidden;
+  background: #000;
+}
+
+.masq-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Sidebar — GitBook-style powered-by attribution */
+.masq-sidebar-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
+}
+
+.masq-sidebar-content > .menu {
+  min-height: 0;
+}
+
+.masq-sidebar-content--mobile {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - var(--ifm-navbar-height));
+}
+
+.masq-sidebar-content--mobile > .menu__list {
+  flex-grow: 1;
+}
+
+.masq-sidebar-attribution {
+  flex-shrink: 0;
+  margin-top: auto;
+  padding: 0.75rem 1rem 1rem;
+  border-top: 1px solid var(--ifm-toc-border-color);
+  font-size: 0.7rem;
+  line-height: 1.35;
+}
+
+.masq-sidebar-attribution a {
+  color: var(--ifm-color-emphasis-600);
+  text-decoration: none;
+}
+
+.masq-sidebar-attribution a:hover {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+/* Navbar — hide external-link SVG; GitHub mark instead of text */
+.navbar__items--right > .navbar__item.navbar__link svg {
+  display: none;
+}
+
+.header-github-link {
+  padding: 0.35rem 0.6rem;
+}
+
+.header-github-link::before {
+  content: '';
+  width: 1.35rem;
+  height: 1.35rem;
+  display: flex;
+  background-color: var(--ifm-navbar-link-color);
+  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  transition: background-color var(--ifm-transition-fast)
+    var(--ifm-transition-timing-default);
+}
+
+.header-github-link:hover::before {
+  background-color: var(--ifm-navbar-link-hover-color);
 }
