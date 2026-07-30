@@ -4,6 +4,7 @@ Public documentation site for MASQ Network, built with [Docusaurus](https://docu
 
 - **Test URL:** https://test-docs.masqbrowser.com
 - **Source content migrated from:** [masq-public-docs](https://github.com/MASQ-Project/masq-public-docs) (GitBook markdown backup)
+- **Branches:** work on `dev` (staging); merge to `main` to deploy GitHub Pages
 
 ## Local development
 
@@ -19,6 +20,15 @@ npm run build
 npm run serve
 ```
 
+## Branching
+
+| Branch | Role |
+|--------|------|
+| `dev` | Staging / day-to-day commits (build CI only) |
+| `main` | Production deploy via GitHub Actions → Pages |
+
+See [`AGENTS.md`](AGENTS.md) for agent/contributor rules and [`CUTOVER.md`](CUTOVER.md) for the `docs.masqbrowser.com` cutover.
+
 ## Content conversion
 
 GitBook markdown can be re-imported with:
@@ -28,7 +38,3 @@ python scripts/convert_gitbook.py
 ```
 
 (Requires a `gitbook-src/` staging copy of the GitBook repo; see `.gitignore`.)
-
-## Cutover note
-
-This site is first published on `test-docs.masqbrowser.com`. When ready, point `docs.masqbrowser.com` at the same GitHub Pages deployment and update `url` + `static/CNAME`.

@@ -15,9 +15,30 @@ Public **MASQ Network documentation** site: **Docusaurus 3** → **GitHub Pages*
 | Assets | `static/img/assets/` (kebab-case filenames) |
 | Nav | `sidebars.js` |
 | Config | `docusaurus.config.js` |
-| Deploy | `.github/workflows/deploy.yml` on push to `main` |
+| Deploy | `.github/workflows/deploy.yml` — **only** on push to `main` |
+| Staging branch | `dev` — day-to-day work; does **not** deploy Pages |
 
 **Do not treat this as a GitBook repo.** The GitBook markdown backup is the sibling repo `masq-public-docs` — leave it untouched unless the user explicitly asks to change it.
+
+## Branch workflow
+
+| Branch | Purpose |
+|--------|---------|
+| `dev` | Default working / staging branch. Commit and push here for QA and hardening. |
+| `main` | Production. Push/merge here triggers GitHub Pages deploy to the live custom domain. |
+
+Rules for agents:
+
+1. **Do day-to-day work on `dev`.** Check out `dev` at session start if not already on it.
+2. **Do not push straight to `main`** unless the user explicitly asks to publish/deploy.
+3. Ship to the live site by merging `dev` → `main` (PR preferred) after `npm run build` is clean and the user approves.
+4. CI: pushes and PRs to `dev` run a **build-only** check. Only `main` runs the Pages deploy workflow.
+
+```powershell
+git fetch origin
+git checkout dev
+git pull origin dev
+```
 
 ## Environment
 

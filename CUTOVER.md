@@ -9,6 +9,7 @@
 | `static/CNAME` | `test-docs.masqbrowser.com` |
 | GitHub Pages | Settings → Pages → Source: **GitHub Actions** |
 | DNS | CNAME `test-docs` → `masq-project.github.io` |
+| Working branch | `dev` (staging). Only merges to `main` publish Pages. |
 
 ## When ready for production
 
@@ -16,7 +17,7 @@
 2. In this repo, change:
    - `docusaurus.config.js` → `url: 'https://docs.masqbrowser.com'`
    - `static/CNAME` → `docs.masqbrowser.com`
-3. Commit and push to `main` (Actions redeploy).
+3. Merge `dev` → `main` (or commit and push to `main`) so Actions redeploy.
 4. Update DNS: point `docs.masqbrowser.com` to GitHub Pages (`masq-project.github.io` CNAME, or GitHub A records).
 5. In GitHub Pages settings, confirm custom domain shows `docs.masqbrowser.com` and HTTPS is enabled.
 6. Detach / remove the custom domain from GitBook so it no longer serves the old site.
