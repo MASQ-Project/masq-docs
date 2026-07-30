@@ -140,5 +140,5 @@ When continuing polish / visual QA (see `working-docs/HANDOVER-HARDENING.md` if 
 ```powershell
 git status -sb
 npm run build
-# spot-check: npm start → /, /masq-web3-privacy-browser, /resources/installer-checksums
+# spot-check: npm start → /, /masq-privacy-browser, /resources/installer-checksums
 ```
