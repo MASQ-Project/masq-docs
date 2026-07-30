@@ -53,7 +53,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: 'img/docusaurus-social-card.jpg',
+      image: 'img/masq-social-card.jpg',
       colorMode: {
         respectPrefersColorScheme: true,
       },
@@ -61,7 +61,8 @@ const config = {
         title: 'MASQ Docs',
         logo: {
           alt: 'MASQ',
-          src: 'img/logo.svg',
+          src: 'img/logo.png',
+          href: '/',
         },
         items: [
           {
