@@ -2,7 +2,7 @@
 
 Public documentation site for MASQ Network, built with [Docusaurus](https://docusaurus.io/).
 
-- **Test URL:** https://test-docs.masqbrowser.com
+- **Live URL:** https://docs.masqbrowser.com
 - **Source content migrated from:** [masq-public-docs](https://github.com/MASQ-Project/masq-public-docs) (GitBook markdown backup)
 - **Branches:** work on `dev` (staging); merge to `main` to deploy GitHub Pages
 
