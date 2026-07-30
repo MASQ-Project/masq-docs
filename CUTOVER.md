@@ -21,7 +21,7 @@
 4. Update DNS: point `docs.masqbrowser.com` to GitHub Pages (`masq-project.github.io` CNAME, or GitHub A records).
 5. In GitHub Pages settings, confirm custom domain shows `docs.masqbrowser.com` and HTTPS is enabled.
 6. Detach / remove the custom domain from GitBook so it no longer serves the old site.
-7. Smoke-test key pages and external inbound links; add redirects later if old `/masq/...` URLs matter.
+7. Smoke-test key pages and external inbound links. Client redirects for GitBook `/masq/...` (plus privacy-browser and `untitled-*` slug renames) are already wired in `docusaurus.config.js` via `@docusaurus/plugin-client-redirects`.
 
 ## Local commands
 

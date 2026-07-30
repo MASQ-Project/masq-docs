@@ -55,16 +55,50 @@ const config = {
       '@docusaurus/plugin-client-redirects',
       /** @type {import('@docusaurus/plugin-client-redirects').Options} */
       ({
+        // Explicit maps for paths that no longer exist as live pages
+        redirects: [
+          {to: '/', from: '/masq'},
+          {
+            to: '/advanced-use/masq-node-from-cli/configuration-methods',
+            from: [
+              '/advanced-use/masq-node-from-cli/untitled-1',
+              '/masq/advanced-use/masq-node-from-cli/untitled-1',
+            ],
+          },
+          {
+            to: '/advanced-use/common-challenges/user-permissions-real-user',
+            from: [
+              '/advanced-use/common-challenges/untitled-2',
+              '/masq/advanced-use/common-challenges/untitled-2',
+            ],
+          },
+          {
+            to: '/advanced-use/common-challenges/port-53-problems',
+            from: [
+              '/advanced-use/common-challenges/untitled-3',
+              '/masq/advanced-use/common-challenges/untitled-3',
+            ],
+          },
+        ],
         createRedirects(existingPath) {
-          if (!existingPath.startsWith('/masq-privacy-browser')) {
-            return undefined;
+          /** @type {string[]} */
+          const from = [];
+
+          // Homepage handled via explicit redirect (/masq).
+          // Do not also emit /masq/ — same stub file on disk (esp. Windows).
+          if (existingPath !== '/') {
+            from.push(`/masq${existingPath}`);
           }
-          // Old folder names kept working via client redirects
-          return [
-            existingPath
+
+          // Privacy-browser folder renames (with and without /masq prefix)
+          if (existingPath.startsWith('/masq-privacy-browser')) {
+            const web3Path = existingPath
               .replace('/masq-privacy-browser', '/masq-web3-privacy-browser')
-              .replace('/updating-masq-browser', '/updating-masq-web3-browser'),
-          ];
+              .replace('/updating-masq-browser', '/updating-masq-web3-browser');
+            from.push(web3Path, `/masq${web3Path}`);
+          }
+
+          return from.length > 0 ? from : undefined;
         },
       }),
     ],
